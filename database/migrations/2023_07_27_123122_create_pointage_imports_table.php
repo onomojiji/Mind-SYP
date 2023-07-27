@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('pointage_imports', function (Blueprint $table) {
             $table->id();
+            $table->string("prenom")->nullable();
+            $table->string("nom")->nullable();
+            $table->string("sexe")->nullable();
+            $table->string("structure")->nullable();
+            $table->string("poste")->nullable();
+            $table->string("date")->nullable();
+            $table->string("entree")->nullable();
+            $table->string("sortie")->nullable();
+            $table->string("total")->nullable();
+
             $table->timestamps();
         });
     }

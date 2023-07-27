@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div>
-                                        <input class="form-control" type="file" id="formFile" accept=".csv, .xlsx">
+                                        <input class="form-control" type="file" id="file" accept=".csv, .xlsx" name="file">
                                     </div>
                                 </div>
                                 <div class="card-footer">
