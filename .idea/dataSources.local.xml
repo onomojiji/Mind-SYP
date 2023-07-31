@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="PS-231.9225.18">
-    <data-source name="@localhost" uuid="4ed99373-c927-42b2-bb4c-70ab205bad0a">
+    <data-source name="@localhost" uuid="a1a7459e-0a4a-41e0-a773-920b9de7e84d">
       <database-info product="MySQL" version="8.0.30" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.30" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
@@ -11,10 +11,7 @@
       <user-name>root</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema">
-            <name qname="@" />
-            <name qname="mindsys_db" />
-          </node>
+          <node kind="schema" qname="mindsyp_db" />
         </introspection-scope>
       </schema-mapping>
     </data-source>

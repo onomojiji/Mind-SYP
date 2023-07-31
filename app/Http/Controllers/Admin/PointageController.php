@@ -18,7 +18,7 @@ class PointageController extends Controller
 
         Excel::import(new PointagesImport, $request->file("file"));
 
-        return redirect()->back()->with("success", "Okay");
+        return redirect()->back()->with("success", "Pointages importés avec succès");
     }
 
     public function create(){

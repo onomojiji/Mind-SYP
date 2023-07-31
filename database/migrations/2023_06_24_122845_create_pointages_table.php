@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Structure::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Poste::class)->constrained()->cascadeOnDelete();
             $table->date('date');
-            $table->time('heure');
+            $table->time('entree')->nullable();
+            $table->time('sortie')->nullable();
+            $table->string('total')->nullable();
             $table->timestamps();
         });
     }

@@ -20,8 +20,18 @@
                                     <h4 class="card-title mb-0 flex-grow-1">Importation du fichier excel</h4>
                                 </div>
                                 <div class="card-body">
+                                    @if(@session('success'))
+                                        <div class="alert alert-success">
+                                            {{session('success')}}
+                                        </div>
+                                    @endif
+                                        @if(@session('fail'))
+                                            <div class="alert alert-success">
+                                                {{session('fail')}}
+                                            </div>
+                                        @endif
                                     <div>
-                                        <input class="form-control" type="file" id="file" accept=".csv, .xlsx" name="file">
+                                        <input class="form-control" type="file" id="file" accept=".csv, .xlsx" name="file" required>
                                     </div>
                                 </div>
                                 <div class="card-footer">

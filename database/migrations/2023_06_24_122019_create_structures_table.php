@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('structures', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

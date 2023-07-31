@@ -9,7 +9,7 @@ class Pointage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["personnel_id", "structure_id", "poste_id", "date", "heure"];
+    protected $fillable = ["personnel_id", "structure_id", "poste_id", "date", "entree", "sortie", "total"];
 
     public function personnel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
