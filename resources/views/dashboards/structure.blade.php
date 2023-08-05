@@ -1,14 +1,15 @@
-<?php $__env->startSection('title'); ?> Accueil <?php $__env->stopSection(); ?>
+@extends('layouts.master')
+@section('title') {{$structure->nom}} @endsection
 
-<?php $__env->startSection('content'); ?>
-    <?php $__env->startComponent('components.breadcrumb'); ?>
-    <?php $__env->slot('li_1'); ?> Accueil <?php $__env->endSlot(); ?>
-    <?php $__env->slot('title'); ?> Tableau de bord MINDDEVEL <?php $__env->endSlot(); ?>
-    <?php echo $__env->renderComponent(); ?>
+@section('content')
+    @component('components.breadcrumb')
+        @slot('li_1') Accueil @endslot
+        @slot('title') {{$structure->nom}} @endslot
+    @endcomponent
 
-    <?php $__env->startSection('css'); ?>
-        <link rel="stylesheet" href="<?php echo e(URL::asset('assets/libs/gridjs/gridjs.min.css')); ?>">
-    <?php $__env->stopSection(); ?>
+    @section('css')
+        <link rel="stylesheet" href="{{ URL::asset('assets/libs/gridjs/gridjs.min.css') }}">
+    @endsection
 
     <div class="row">
         <div class="col-xl-12">
@@ -21,7 +22,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-3">
-                                        <h2 class="mb-0 text-primary"><span class="counter-value" data-target="<?php echo e($nbPointages); ?>">0</span></h2>
+                                        <h2 class="mb-0 text-primary"><span class="counter-value" data-target="{{$nbPointages}}">0</span></h2>
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +33,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-3">
-                                        <h2 class="mb-0 text-success"><span class="counter-value" data-target="<?php echo e($pointagesSuccess); ?>">0</span></h2>
+                                        <h2 class="mb-0 text-success"><span class="counter-value" data-target="{{$pointagesSuccess}}">0</span></h2>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +44,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-3">
-                                        <h2 class="mb-0 text-danger"><span class="counter-value" data-target="<?php echo e($pointagesFail); ?>">0</span></h2>
+                                        <h2 class="mb-0 text-danger"><span class="counter-value" data-target="{{$pointagesFail}}">0</span></h2>
                                     </div>
                                 </div>
                             </div>
@@ -149,81 +150,44 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-2">
-                    <div class="nav nav-pills flex-column nav-pills-tab custom-verti-nav-pills text-center"
-                         role="tablist" aria-orientation="vertical">
-                        <?php for($i = 0; $i < count($personnels["structure"]); $i++): ?>
-                            <?php if($i==0): ?>
-                                <a class="nav-link active show" id="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])."-tab"); ?>" data-bs-toggle="pill"
-                                   href="#<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>" role="tab" aria-controls="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>"
-                                   aria-selected="true">
-                                    <?php echo e($personnels["structure"][$i]); ?></a>
-                            <?php else: ?>
-                                <a class="nav-link" id="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])."-tab"); ?>" data-bs-toggle="pill"
-                                   href="#<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>" role="tab" aria-controls="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>"
-                                   aria-selected="false">
-                                    <?php echo e($personnels["structure"][$i]); ?></a>
-                            <?php endif; ?>
-                        <?php endfor; ?>
+                <div class="col-lg-12">
+                    <div class="table-responsive table-card">
+                        <table class="table table-nowrap table-striped-columns mb-0">
+                            <thead class="table-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom(s) et prénom(s)</th>
+                                <th scope="col">Sexe</th>
+                                <th scope="col">Poste</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @for($j = 0; $j < count($personnels); $j++)
+                                <tr>
+                                    <td>{{$j + 1}}</td>
+                                    <td>
+                                        <a href="#">
+                                            {{$personnels[$j]["nom"]." ".$personnels[$j]["prenom"]}}
+                                        </a>
+                                    </td>
+                                    @if($personnels[$j]["sexe"] == "Male")
+                                        <td>{{__("Masculin")}}</td>
+                                    @elseif($personnels[$j]["sexe"] == "Female")
+                                        <td>{{__("Feminin")}}</td>
+                                    @endif
+                                    <td>{{$personnels[$j]["poste"]}}</td>
+                                </tr>
+                            @endfor
+                            </tbody>
+                        </table>
                     </div>
-                </div> <!-- end col-->
-                <div class="col-lg-10">
-                    <div class="tab-content text-muted mt-3 mt-lg-0">
-
-                        <?php for($i = 0; $i < count($personnels["structure"]); $i++): ?>
-                            <?php if($i==0): ?>
-                                <div class="tab-pane fade active show" id="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>" role="tabpanel"
-                                     aria-labelledby="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])."-tab"); ?>">
-                                    <?php else: ?>
-                                        <div class="tab-pane fade" id="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>" role="tabpanel"
-                                             aria-labelledby="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])."-tab"); ?>">
-                                            <?php endif; ?>
-                                            <div class="table-responsive table-card">
-                                                <table class="table table-nowrap table-striped-columns mb-0">
-                                                    <thead class="table-light">
-                                                    <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Nom(s) et prénom(s)</th>
-                                                        <th scope="col">Sexe</th>
-                                                        <th scope="col">Poste</th>
-                                                        <th scope="col">Structure</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php for($j = 0; $j < count($personnels["personnel"]); $j++): ?>
-                                                        <?php if($personnels["personnel"][$j]["structure"] == $personnels["structure"][$i]): ?>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>
-                                                                    <a href="#">
-                                                                        <?php echo e($personnels["personnel"][$j]["nom"]." ".$personnels["personnel"][$j]["prenom"]); ?>
-
-                                                                    </a>
-                                                                </td>
-                                                                <?php if($personnels["personnel"][$j]["sexe"] == "Male"): ?>
-                                                                    <td><?php echo e(__("Masculin")); ?></td>
-                                                                <?php elseif($personnels["personnel"][$j]["sexe"] == "Female"): ?>
-                                                                    <td><?php echo e(__("Feminin")); ?></td>
-                                                                <?php endif; ?>
-                                                                <td><?php echo e($personnels["personnel"][$j]["poste"]); ?></td>
-                                                                <td><?php echo e($personnels["personnel"][$j]["structure"]); ?></td>
-                                                            </tr>
-                                                        <?php endif; ?>
-                                                    <?php endfor; ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div><!--end tab-pane-->
-                                        <?php endfor; ?>
-                                </div>
-                    </div> <!-- end col-->
                 </div> <!-- end row-->
             </div><!-- end card-body -->
         </div>
     </div>
-<?php $__env->stopSection(); ?>
+@endsection
 
-<?php $__env->startSection('script'); ?>
+@section('script')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script type="text/javascript">
@@ -308,8 +272,6 @@
 
     </script>
 
-    <script src="<?php echo e(URL::asset('/assets/js/app.min.js')); ?>"></script>
+    <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
 
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\inimini\Documents\mindsyp\mindsyp\resources\views/index.blade.php ENDPATH**/ ?>
+@endsection

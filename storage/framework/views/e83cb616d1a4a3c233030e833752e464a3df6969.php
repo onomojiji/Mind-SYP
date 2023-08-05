@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
     <?php $__env->startComponent('components.breadcrumb'); ?>
-        <?php $__env->slot('li_1'); ?> DSI <?php $__env->endSlot(); ?>
+        <?php $__env->slot('li_1'); ?> Accueil <?php $__env->endSlot(); ?>
         <?php $__env->slot('title'); ?> Nouvelle importation <?php $__env->endSlot(); ?>
     <?php echo $__env->renderComponent(); ?>
 

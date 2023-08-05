@@ -1,0 +1,1 @@
+<?php /**PATH C:\Users\inimini\Documents\mindsyp\mindsyp\resources\views/Users/index.blade.php ENDPATH**/ ?>

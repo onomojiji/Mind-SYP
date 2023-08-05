@@ -3,7 +3,7 @@
 
 @section('content')
     @component('components.breadcrumb')
-        @slot('li_1') DSI @endslot
+        @slot('li_1') Accueil @endslot
         @slot('title') Nouvelle importation @endslot
     @endcomponent
 

@@ -14,3 +14,4 @@
 
 <!--end back-to-top-->
 
+<?php /**PATH C:\Users\inimini\Documents\mindsyp\mindsyp\resources\views/layouts/customizer.blade.php ENDPATH**/ ?>

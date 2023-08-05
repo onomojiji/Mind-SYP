@@ -26,6 +26,8 @@ class PointagesImport implements ToArray
                 "sexe" => $array[$i][2],
             ]);
 
+            // creation d'utilisateur pour les directeurs
+
             // trouver la structure
             $isStructure = Structure::where("nom", $array[$i][3])->first();
             $isStructure ? $structure = $isStructure : $structure = Structure::create([
@@ -53,6 +55,7 @@ class PointagesImport implements ToArray
                 ->where("poste_id", $poste->id)
                 ->first();
 
+            // création du pointage
             $isPointage ? $pointage = $isPointage : $pointage = Pointage::create([
                 "date" => $date,
                 "entree" => $entree,

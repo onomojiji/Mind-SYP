@@ -15,4 +15,9 @@ class Personnel extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function pointages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Pointage::class);
+    }
 }

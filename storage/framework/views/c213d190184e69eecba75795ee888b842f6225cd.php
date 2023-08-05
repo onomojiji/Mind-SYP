@@ -31,16 +31,24 @@
             <div id="two-column-menu">
             </div>
             <ul class="navbar-nav" id="navbar-nav">
-                <li class="menu-title"><span>STRUCTURE</span></li>
+                <li class="menu-title"><span>MONITORING</span></li>
+
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                        <i class="las la-tachometer-alt"></i> <span>DSI</span>
+                    <a href="<?php echo e(route("root")); ?>" class="nav-link"><i class="las la-tachometer-alt"></i> Accueil</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dashboards-menu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="dashboards-menu">
+                        <i class="las la-building"></i> <span>Structures</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarDashboards">
+                    <div class="collapse menu-dropdown" id="dashboards-menu">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="<?php echo e(route("root")); ?>" class="nav-link">Tableau de bord</a>
-                            </li>
+                            <?php $__currentLoopData = \App\Models\Structure::orderBy("nom")->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $structure): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(route("structure.dashboard", ["structure_id" => $structure->id])); ?>" class="nav-link"><?php echo e($structure->nom); ?></a>
+                                </li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                         </ul>
                     </div>
                 </li>
@@ -48,16 +56,32 @@
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>ADMINISTRATION</span></li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="lar la-user-circle"></i> <span>Importations</span>
+                    <a class="nav-link menu-link" href="#importations" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="importations">
+                        <i class="lar la-file-excel"></i> <span>Importations</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarAuth">
+                    <div class="collapse menu-dropdown" id="importations">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="<?php echo e(route("importation.create")); ?>" class="nav-link">Nouvelle importation</a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?php echo e(route("importation.list")); ?>" class="nav-link">Liste des importations</a>
+                                <a href="<?php echo e(route("importation.list")); ?>" class="nav-link">Lister les importations</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#users" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="users">
+                        <i class="lar la-user-circle"></i> <span>Utilisateurs</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="users">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="<?php echo e(route("users.create")); ?>" class="nav-link">Ajouter un utilisateur</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo e(route("users.list")); ?>" class="nav-link">Lister les utilisateurs</a>
                             </li>
                         </ul>
                     </div>

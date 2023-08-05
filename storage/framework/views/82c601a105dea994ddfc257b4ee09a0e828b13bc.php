@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Mayiwi - Connexion</title>
+    <title>MINDSYP - Connexion</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -34,7 +34,7 @@
 
 <div class="auth-page-wrapper pt-5">
     <!-- auth page bg -->
-    <div class="auth-one-bg-position" id="auth-particles" style="background-image: url('<?php echo e(asset("images/biometrie.jpg")); ?>')">
+    <div class="auth-one-bg-position" id="auth-particles" style="background-image: url('<?php echo e(asset("images/nft/marketplace.png")); ?>')">
         <div class="bg-overlay"></div>
     </div>
 
@@ -43,9 +43,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="text-center mt-sm-5 mb-4 text-white-50">
+                    <div class="text-center mt-sm-2 mb-2 text-white-50">
                         <div>
-                            <p class="display-4 text-light fw-bold"><?php echo e(__("Mayiwi")); ?></p>
+                            <p class="display-4 text-light fw-bold"><?php echo e(__("MIND-SYP")); ?></p>
                         </div>
                         <p class="mt-3 fs-15 fw-medium"><?php echo e(("Supervision des données des pointeurs biométriques du personnel du Ministère de la décentralisation et du developpement local du Cameroun")); ?></p>
                     </div>
@@ -104,6 +104,20 @@
         <!-- end container -->
     </div>
     <!-- end auth page content -->
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        Copyright &copy; <span id="date"></span> <a class="fw-bold text-success" href="https://www.minddevel.gov.cm" target="_blank">MINDDEVEL CAMEROUN</a>, Tous droits réservés.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
 </div>
 <!-- end auth-page-wrapper -->
 
@@ -121,6 +135,15 @@
 <script src="<?php echo e(asset("assets/js/pages/particles.app.js")); ?> "></script>
 <!-- password-addon init -->
 <script src="<?php echo e(asset("assets/js/pages/password-addon.init.js")); ?> "></script>
+<script>
+    var today = new Date();
+    var date = today.getFullYear()
+    if(date===2023){
+        document.getElementById("date").innerHTML = 2023;
+    }else{
+        document.getElementById("date").innerHTML="2023 - " + date;
+    }
+</script>
 </body>
 
 </html>

@@ -11,6 +11,8 @@ class PointageController extends Controller
 {
     public function index(){
 
+        return view("importations.index");
+
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
