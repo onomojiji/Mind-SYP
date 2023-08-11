@@ -34,8 +34,8 @@ Route::middleware(["auth"])->group(function (){
     });
 
     Route::controller(\App\Http\Controllers\Admin\StructureController::class)->group(function () {
-        Route::get('/dashboard/{structure_id}', 'index')->name("structure.dashboard");
-        Route::get('/dashboard/{structure_id}/{personnel_id}', 'show')->name("personnel.dashboard");
+        Route::get('/structure/{structure_id}', 'index')->name("structure.dashboard");
+        Route::get('/structure/{structure_id}/{personnel_id}', 'show')->name("personnel.dashboard");
     });
 
     Route::controller(\App\Http\Controllers\Admin\UsersController::class)->group(function () {

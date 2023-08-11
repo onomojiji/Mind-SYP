@@ -10,6 +10,79 @@
         <link rel="stylesheet" href="<?php echo e(URL::asset('assets/libs/gridjs/gridjs.min.css')); ?>">
     <?php $__env->stopSection(); ?>
 
+    <form method="get" action="<?php echo e(route("root")); ?>">
+        <div class="row ">
+
+            <div class="col-md-6">
+                <div class="row">
+
+                    <div class="col-md-1 my-2 text-center"><strong>De</strong></div>
+
+                    <div class="col-md-6">
+                        <select class="form-select mb-3" name="moisStart">
+                            <option value="1">JANVIER</option>
+                            <option value="2">FEVRIER</option>
+                            <option value="3">MARS</option>
+                            <option value="4">AVRIL</option>
+                            <option value="5">MAI</option>
+                            <option value="6">JUIN</option>
+                            <option value="7">JUILLET</option>
+                            <option value="8">AOÛT</option>
+                            <option value="9">SEPTEMBRE</option>
+                            <option value="10">OCTOBRE</option>
+                            <option value="11">NOVEMBRE</option>
+                            <option value="12">DECEMBRE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-select mb-3" name="anneeStart">
+                            <?php for($i = 2018; $i <= \Illuminate\Support\Carbon::now()->year; $i++): ?>
+                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="row">
+
+                    <div class="col-md-1 my-2 text-center"><strong>A</strong></div>
+
+                    <div class="col-md-6">
+                        <select class="form-select mb-3" name="moisEnd">
+                            <option value="1" <?php if(\Illuminate\Support\Carbon::now()->month == 1): ?> selected <?php endif; ?>>JANVIER</option>
+                            <option value="2" <?php if(\Illuminate\Support\Carbon::now()->month == 2): ?> selected <?php endif; ?>>FEVRIER</option>
+                            <option value="3" <?php if(\Illuminate\Support\Carbon::now()->month == 3): ?> selected <?php endif; ?>>MARS</option>
+                            <option value="4" <?php if(\Illuminate\Support\Carbon::now()->month == 4): ?> selected <?php endif; ?>>AVRIL</option>
+                            <option value="5" <?php if(\Illuminate\Support\Carbon::now()->month == 5): ?> selected <?php endif; ?>>MAI</option>
+                            <option value="6" <?php if(\Illuminate\Support\Carbon::now()->month == 6): ?> selected <?php endif; ?>>JUIN</option>
+                            <option value="7" <?php if(\Illuminate\Support\Carbon::now()->month == 7): ?> selected <?php endif; ?>>JUILLET</option>
+                            <option value="8" <?php if(\Illuminate\Support\Carbon::now()->month == 8): ?> selected <?php endif; ?>>AOÛT</option>
+                            <option value="9" <?php if(\Illuminate\Support\Carbon::now()->month == 9): ?> selected <?php endif; ?>>SEPTEMBRE</option>
+                            <option value="10" <?php if(\Illuminate\Support\Carbon::now()->month == 10): ?> selected <?php endif; ?>>OCTOBRE</option>
+                            <option value="11" <?php if(\Illuminate\Support\Carbon::now()->month == 11): ?> selected <?php endif; ?>>NOVEMBRE</option>
+                            <option value="12" <?php if(\Illuminate\Support\Carbon::now()->month == 12): ?> selected <?php endif; ?>>DECEMBRE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-select mb-3" name="anneeEnd">
+                            <?php for($j = \Illuminate\Support\Carbon::now()->year; $j >= 2018; $j--): ?>
+                                <option value="<?php echo e($j); ?>"><?php echo e($j); ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1 my-md-0 mb-3">
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+
+        </div>
+
+    </form>
+
     <div class="row">
         <div class="col-xl-12">
             <div class="card crm-widget">
@@ -54,7 +127,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="07">0</span> h <span class="counter-value" data-target="38">0</span> min</h2>
+                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hme); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mme); ?>">0</span> min</h2>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +138,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="15">0</span> h <span class="counter-value" data-target="23">0</span> min</h2>
+                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hms); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mms); ?>">0</span> min</h2>
                                     </div>
                                 </div>
                             </div>
@@ -126,12 +199,12 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Ration poitages réussi/rejeté</h4>
+                                <h4 class="card-title mb-0">Ratio pointages réussis/rejetés</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
                                 <div>
-                                    <canvas id="departChart"></canvas>
+                                    <canvas id="ratioChart"></canvas>
                                 </div>
                             </div><!-- end card-body -->
                         </div><!-- end card -->
@@ -141,85 +214,6 @@
             </div>
 
         </div> <!-- end col -->
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Personnel par structure</h4>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="nav nav-pills flex-column nav-pills-tab custom-verti-nav-pills text-center"
-                         role="tablist" aria-orientation="vertical">
-                        <?php for($i = 0; $i < count($personnels["structure"]); $i++): ?>
-                            <?php if($i==0): ?>
-                                <a class="nav-link active show" id="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])."-tab"); ?>" data-bs-toggle="pill"
-                                   href="#<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>" role="tab" aria-controls="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>"
-                                   aria-selected="true">
-                                    <?php echo e($personnels["structure"][$i]); ?></a>
-                            <?php else: ?>
-                                <a class="nav-link" id="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])."-tab"); ?>" data-bs-toggle="pill"
-                                   href="#<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>" role="tab" aria-controls="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>"
-                                   aria-selected="false">
-                                    <?php echo e($personnels["structure"][$i]); ?></a>
-                            <?php endif; ?>
-                        <?php endfor; ?>
-                    </div>
-                </div> <!-- end col-->
-                <div class="col-lg-10">
-                    <div class="tab-content text-muted mt-3 mt-lg-0">
-
-                        <?php for($i = 0; $i < count($personnels["structure"]); $i++): ?>
-                            <?php if($i==0): ?>
-                                <div class="tab-pane fade active show" id="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>" role="tabpanel"
-                                     aria-labelledby="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])."-tab"); ?>">
-                                    <?php else: ?>
-                                        <div class="tab-pane fade" id="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])); ?>" role="tabpanel"
-                                             aria-labelledby="<?php echo e(Str::remove([" ", "'", "-"], $personnels["structure"][$i])."-tab"); ?>">
-                                            <?php endif; ?>
-                                            <div class="table-responsive table-card">
-                                                <table class="table table-nowrap table-striped-columns mb-0">
-                                                    <thead class="table-light">
-                                                    <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Nom(s) et prénom(s)</th>
-                                                        <th scope="col">Sexe</th>
-                                                        <th scope="col">Poste</th>
-                                                        <th scope="col">Structure</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php for($j = 0; $j < count($personnels["personnel"]); $j++): ?>
-                                                        <?php if($personnels["personnel"][$j]["structure"] == $personnels["structure"][$i]): ?>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>
-                                                                    <a href="#">
-                                                                        <?php echo e($personnels["personnel"][$j]["nom"]." ".$personnels["personnel"][$j]["prenom"]); ?>
-
-                                                                    </a>
-                                                                </td>
-                                                                <?php if($personnels["personnel"][$j]["sexe"] == "Male"): ?>
-                                                                    <td><?php echo e(__("Masculin")); ?></td>
-                                                                <?php elseif($personnels["personnel"][$j]["sexe"] == "Female"): ?>
-                                                                    <td><?php echo e(__("Feminin")); ?></td>
-                                                                <?php endif; ?>
-                                                                <td><?php echo e($personnels["personnel"][$j]["poste"]); ?></td>
-                                                                <td><?php echo e($personnels["personnel"][$j]["structure"]); ?></td>
-                                                            </tr>
-                                                        <?php endif; ?>
-                                                    <?php endfor; ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div><!--end tab-pane-->
-                                        <?php endfor; ?>
-                                </div>
-                    </div> <!-- end col-->
-                </div> <!-- end row-->
-            </div><!-- end card-body -->
-        </div>
     </div>
 <?php $__env->stopSection(); ?>
 
@@ -305,6 +299,24 @@
                 }
             }
         });
+
+        const ratio = document.getElementById('ratioChart')
+
+        new Chart(ratio, {
+            type: 'pie',
+            data: {
+                labels: ["Réussis", "Rejetés"],
+                datasets: [{
+                    label: 'Ratio pointages réussis/rejeté',
+                    data: ["<?php echo e($pointagesSuccess); ?>", "<?php echo e($pointagesFail); ?>"],
+                    backgroundColor: [
+                        "rgb(69, 175, 217)",
+                        "rgb(255,0,0)"
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+        })
 
     </script>
 

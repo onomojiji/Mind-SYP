@@ -9,9 +9,11 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use Matrix\Builder;
 
 class HomeController extends Controller
 {
@@ -38,12 +40,35 @@ class HomeController extends Controller
         return abort(404);
     }
 
-    public function root()
+    public function root(Request $request)
     {
-        $start = "20:24:02";
-        $end = "22:22:00";
 
-        //dd(gmdate("H:i:s", (strtotime($end) + strtotime($start)) / 2));
+        $mois1 = $request->moisStart;
+        $annee1 = $request->anneeStart;
+        $mois2 = $request->moisEnd;
+        $annee2 = $request->anneeEnd;
+
+        if ($mois1 = $mois2 = $annee1 = $annee2 == null){
+            $pointages = Pointage::orderBy("date")->get();
+
+            $pointagesReussis = Pointage::where("entree","!=", null)->where("sortie", "!=", null)->get();
+
+            $pointagesEchoue = Pointage::where("entree", null)->orWhere("sortie", null)->get();
+        }else{
+            $pointages = Pointage::whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])->orderBy("date")->get();
+
+            $pointagesReussis = Pointage::where("entree","!=", null)
+                ->where("sortie", "!=", null)
+                ->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+                ->get();
+
+            $pointagesEchoue = DB::table("pointages")->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+                ->where(function (\Illuminate\Contracts\Database\Query\Builder $query) {
+                    $query->where('entree', null)
+                        ->orWhere('sortie', null);
+                })
+                ->get();
+        }
 
         $pointagesTotal = [
             "date" => [],
@@ -51,66 +76,32 @@ class HomeController extends Controller
             "sortie" => [],
         ];
 
-        $personnels = [
-            "structure" => [],
-            "personnel" => []
-        ];
+        $hme = $hms = $mme = $mms = 0;
 
-        $pointages = Pointage::orderBy("date")->get();
-        $pointagesReussis = 0;
-        $pointagesEchoue = 0;
-        $moyEntree = "00:00:00";
-        $moySortie = "00:00:00";
-        foreach ($pointages as $point){
-            ($point->entree == null || $point->sortie == null)? $pointagesEchoue += 1 : $pointagesReussis += 1;
-            if (in_array(date("d M Y", strtotime($point->date)), $pointagesTotal["date"])){
-                $moyEntree = gmdate(
-                    "H:i:s", (
-                    (strtotime($moyEntree) + strtotime($point->entree)) / 2
-                    )
-                );
-                $moySortie = gmdate(
-                    "H:i:s", (
-                    (strtotime($moySortie) + strtotime($point->sortie)) / 2
-                )
-                );
-            }else {
-                $pointagesTotal["date"][] = date("d M Y", strtotime($point->date));
-                $pointagesTotal["entree"][] = $moyEntree;
-                $pointagesTotal["sortie"][] = $moySortie;
-            }
+        foreach ($pointagesReussis as $pr){
+            $hme += date('H', strtotime($pr->entree));
+            $mme += date('i', strtotime($pr->entree));
+
+            $hms += date('H', strtotime($pr->sortie));
+            $mms += date('i', strtotime($pr->sortie));
         }
 
-        // get all minndevel personnels
-        foreach (Personnel::orderBy("nom")->get() as $personnel){
-            $pointagePersonnel = $personnel->pointages->first();
-            if ($pointagePersonnel != null){
-                $structurePersonnel = $pointagePersonnel->structure;
-                $postePersonnel = $pointagePersonnel->poste;
-
-                if(!in_array($structurePersonnel->nom, $personnels["structure"])){
-                    $personnels["structure"][] = $structurePersonnel->nom;
-                }
-                $personnels["personnel"][] = [
-                    "structure" => $structurePersonnel->nom,
-                    "nom" => $personnel->nom,
-                    "prenom" => $personnel-> prenom,
-                    "sexe" => $personnel->sexe,
-                    "poste" => $postePersonnel->nom
-                ];
-            }
-        }
-
-        //dd($personnels);
+        $hme = intdiv($hme, count($pointagesReussis));
+        $mme = intdiv($mme, count($pointagesReussis));
+        $hms = intdiv($hms, count($pointagesReussis));
+        $mms = intdiv($mms, count($pointagesReussis));
 
         return view(
             'index',
             [
                 'pointages' => $pointagesTotal,
-                "personnels" => $personnels,
                 "nbPointages" => count($pointages),
-                "pointagesSuccess" => $pointagesReussis,
-                "pointagesFail" => $pointagesEchoue
+                "pointagesSuccess" => count($pointagesReussis),
+                "pointagesFail" => count($pointagesEchoue),
+                'hme' => intdiv($hme,1),
+                'mme' => $mme,
+                'hms' => intdiv($hms,1),
+                'mms' => $mms
             ]
         );
     }

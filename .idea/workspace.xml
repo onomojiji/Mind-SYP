@@ -4,35 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d81881e2-aaa9-477c-9fa0-027dfff3503f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/Users/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/Users/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/dashboards/personnel.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/dashboards/structure.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mindsyp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mindsyp.iml" afterDir="false" />
+    <list default="true" id="d81881e2-aaa9-477c-9fa0-027dfff3503f" name="Changes" comment="Anvancement à 70%">
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/6dc6c4ab84b06e9c5320a1d193f4196dcf649f78.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PointageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PointageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StructureController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StructureController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Imports/PointagesImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/PointagesImport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Personnel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Personnel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/minddevel.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/minddevel.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/importations/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/importations/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/importations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/importations/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboards/personnel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboards/personnel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboards/structure.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboards/structure.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/customizer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/customizer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master-layouts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master-layouts.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master-without-nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master-without-nav.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/5048986717c305b408427646d5effaa49c981e49.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/5048986717c305b408427646d5effaa49c981e49.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/5058976a69676f4306283fcd7eeb32c1ce9bf2e6.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/5058976a69676f4306283fcd7eeb32c1ce9bf2e6.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/720082df50e03e33077c51d97aef71d45b52af00.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/720082df50e03e33077c51d97aef71d45b52af00.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/82c601a105dea994ddfc257b4ee09a0e828b13bc.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/82c601a105dea994ddfc257b4ee09a0e828b13bc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/c213d190184e69eecba75795ee888b842f6225cd.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c213d190184e69eecba75795ee888b842f6225cd.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/e83cb616d1a4a3c233030e833752e464a3df6969.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/e83cb616d1a4a3c233030e833752e464a3df6969.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/f82b4660d2b0f5bdfa2ccfee507a39ee1ef06843.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/f82b4660d2b0f5bdfa2ccfee507a39ee1ef06843.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/76b116f3b9062c7f2dab956f8d50ea385a79740a.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/76b116f3b9062c7f2dab956f8d50ea385a79740a.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/a54789b05c9fba06c504805c6911cf5bbe486e71.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a54789b05c9fba06c504805c6911cf5bbe486e71.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,21 +158,26 @@
     </include_path>
   </component>
   <component name="ProjectId" id="2TKrHFPbTNJnODSGVr5eSFJPq67" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/inimini/Documents/mindsyp/mindsyp/public/images",
+    "last_opened_file_path": "C:/Users/inimini/Documents/TARGEP CTD",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -221,8 +212,21 @@
       <workItem from="1690819391953" duration="10000" />
       <workItem from="1690819764506" duration="3047000" />
       <workItem from="1690968780731" duration="18022000" />
-      <workItem from="1691056658379" duration="31829000" />
+      <workItem from="1691056658379" duration="32044000" />
+      <workItem from="1691348107797" duration="9107000" />
+      <workItem from="1691517329949" duration="337000" />
+      <workItem from="1691691652058" duration="833000" />
+      <workItem from="1691742453388" duration="33552000" />
     </task>
+    <task id="LOCAL-00001" summary="Anvancement à 70%">
+      <option name="closed" value="true" />
+      <created>1691246948151</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1691246948151</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,5 +245,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Anvancement à 70%" />
+    <option name="LAST_COMMIT_MESSAGE" value="Anvancement à 70%" />
   </component>
 </project>

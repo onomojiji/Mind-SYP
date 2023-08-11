@@ -4,6 +4,7 @@
 </button>
 
 <!--preloader-->
+<!--
 <div id="preloader">
     <div id="status">
         <div class="spinner-border text-primary avatar-sm" role="status">
@@ -11,6 +12,6 @@
         </div>
     </div>
 </div>
-
+-->
 <!--end back-to-top-->
 

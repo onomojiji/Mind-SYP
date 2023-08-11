@@ -10,6 +10,79 @@
         <link rel="stylesheet" href="<?php echo e(URL::asset('assets/libs/gridjs/gridjs.min.css')); ?>">
     <?php $__env->stopSection(); ?>
 
+    <form method="get" action="<?php echo e(route("structure.dashboard", $structure->id)); ?>">
+        <div class="row ">
+
+            <div class="col-md-6">
+                <div class="row">
+
+                    <div class="col-md-1 my-2 text-center"><strong>De</strong></div>
+
+                    <div class="col-md-6">
+                        <select class="form-select mb-3" name="moisStart">
+                            <option value="1">JANVIER</option>
+                            <option value="2">FEVRIER</option>
+                            <option value="3">MARS</option>
+                            <option value="4">AVRIL</option>
+                            <option value="5">MAI</option>
+                            <option value="6">JUIN</option>
+                            <option value="7">JUILLET</option>
+                            <option value="8">AOÛT</option>
+                            <option value="9">SEPTEMBRE</option>
+                            <option value="10">OCTOBRE</option>
+                            <option value="11">NOVEMBRE</option>
+                            <option value="12">DECEMBRE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-select mb-3" name="anneeStart">
+                            <?php for($i = 2018; $i <= \Illuminate\Support\Carbon::now()->year; $i++): ?>
+                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="row">
+
+                    <div class="col-md-1 my-2 text-center"><strong>A</strong></div>
+
+                    <div class="col-md-6">
+                        <select class="form-select mb-3" name="moisEnd">
+                            <option value="1" <?php if(\Illuminate\Support\Carbon::now()->month == 1): ?> selected <?php endif; ?>>JANVIER</option>
+                            <option value="2" <?php if(\Illuminate\Support\Carbon::now()->month == 2): ?> selected <?php endif; ?>>FEVRIER</option>
+                            <option value="3" <?php if(\Illuminate\Support\Carbon::now()->month == 3): ?> selected <?php endif; ?>>MARS</option>
+                            <option value="4" <?php if(\Illuminate\Support\Carbon::now()->month == 4): ?> selected <?php endif; ?>>AVRIL</option>
+                            <option value="5" <?php if(\Illuminate\Support\Carbon::now()->month == 5): ?> selected <?php endif; ?>>MAI</option>
+                            <option value="6" <?php if(\Illuminate\Support\Carbon::now()->month == 6): ?> selected <?php endif; ?>>JUIN</option>
+                            <option value="7" <?php if(\Illuminate\Support\Carbon::now()->month == 7): ?> selected <?php endif; ?>>JUILLET</option>
+                            <option value="8" <?php if(\Illuminate\Support\Carbon::now()->month == 8): ?> selected <?php endif; ?>>AOÛT</option>
+                            <option value="9" <?php if(\Illuminate\Support\Carbon::now()->month == 9): ?> selected <?php endif; ?>>SEPTEMBRE</option>
+                            <option value="10" <?php if(\Illuminate\Support\Carbon::now()->month == 10): ?> selected <?php endif; ?>>OCTOBRE</option>
+                            <option value="11" <?php if(\Illuminate\Support\Carbon::now()->month == 11): ?> selected <?php endif; ?>>NOVEMBRE</option>
+                            <option value="12" <?php if(\Illuminate\Support\Carbon::now()->month == 12): ?> selected <?php endif; ?>>DECEMBRE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-select mb-3" name="anneeEnd">
+                            <?php for($j = \Illuminate\Support\Carbon::now()->year; $j >= 2018; $j--): ?>
+                                <option value="<?php echo e($j); ?>"><?php echo e($j); ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1 my-md-0 mb-3">
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+
+        </div>
+
+    </form>
+
     <div class="row">
         <div class="col-xl-12">
             <div class="card crm-widget">
@@ -21,7 +94,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-3">
-                                        <h2 class="mb-0 text-primary"><span class="counter-value" data-target="<?php echo e($nbPointages); ?>">0</span></h2>
+                                        <h2 class="mb-0 text-primary"><span class="counter-value" data-target="<?php echo e(count($nbPointages)); ?>">0</span></h2>
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +105,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-3">
-                                        <h2 class="mb-0 text-success"><span class="counter-value" data-target="<?php echo e($pointagesSuccess); ?>">0</span></h2>
+                                        <h2 class="mb-0 text-success"><span class="counter-value" data-target="<?php echo e(count($pointagesSuccess)); ?>">0</span></h2>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +116,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-3">
-                                        <h2 class="mb-0 text-danger"><span class="counter-value" data-target="<?php echo e($pointagesFail); ?>">0</span></h2>
+                                        <h2 class="mb-0 text-danger"><span class="counter-value" data-target="<?php echo e(count($pointagesFail)); ?>">0</span></h2>
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +127,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="07">0</span> h <span class="counter-value" data-target="38">0</span> min</h2>
+                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hme); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mme); ?>">0</span> min</h2>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +138,7 @@
                                 </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="15">0</span> h <span class="counter-value" data-target="23">0</span> min</h2>
+                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hms); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mms); ?>">0</span> min</h2>
                                     </div>
                                 </div>
                             </div>
@@ -126,12 +199,12 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Ration poitages réussi/rejeté</h4>
+                                <h4 class="card-title mb-0">Ration pointages réussis/rejetés</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
                                 <div>
-                                    <canvas id="departChart"></canvas>
+                                    <canvas id="ratioChart"></canvas>
                                 </div>
                             </div><!-- end card-body -->
                         </div><!-- end card -->
@@ -145,7 +218,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Personnel par structure</h4>
+            <h4 class="card-title">Personnel de la structure</h4>
         </div>
         <div class="card-body">
             <div class="row">
@@ -158,14 +231,18 @@
                                 <th scope="col">Nom(s) et prénom(s)</th>
                                 <th scope="col">Sexe</th>
                                 <th scope="col">Poste</th>
+                                <th scope="col">Nombre de pointages</th>
+                                <th scope="col">Pointages réussis</th>
+                                <th scope="col">A justifier</th>
+                                <th scope="col">Pourcentage de réussite</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php for($j = 0; $j < count($personnels); $j++): ?>
-                                <tr>
+                                <tr class="text-center">
                                     <td><?php echo e($j + 1); ?></td>
                                     <td>
-                                        <a href="#">
+                                        <a href="<?php echo e(route("personnel.dashboard", ["structure_id" => $structure->id, "personnel_id" => $personnels[$j]["id"]])); ?>">
                                             <?php echo e($personnels[$j]["nom"]." ".$personnels[$j]["prenom"]); ?>
 
                                         </a>
@@ -176,6 +253,10 @@
                                         <td><?php echo e(__("Feminin")); ?></td>
                                     <?php endif; ?>
                                     <td><?php echo e($personnels[$j]["poste"]); ?></td>
+                                    <td class="text-primary"><strong><?php echo e($personnels[$j]["nbPoints"]); ?></strong></td>
+                                    <td class="text-success"><strong><?php echo e($personnels[$j]["nbPointsReussis"]); ?></strong></td>
+                                    <td class="text-danger"><strong><?php echo e($personnels[$j]["nbPointsEchoues"]); ?></strong> </td>
+                                    <td><strong> <?php echo e(number_format(($personnels[$j]["nbPointsReussis"] / $personnels[$j]["nbPoints"])*100, 1)." %"); ?> </strong></td>
                                 </tr>
                             <?php endfor; ?>
                             </tbody>
@@ -185,6 +266,111 @@
             </div><!-- end card-body -->
         </div>
     </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Pointages réussis du personnel</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive table-card">
+                        <table class="table table-nowrap table-striped-columns mb-0">
+                            <thead class="table-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom(s) et prénom(s)</th>
+                                <th scope="col">Sexe</th>
+                                <th scope="col">Structure</th>
+                                <th scope="col">Poste</th>
+                                <th scope="col">Date de pointage</th>
+                                <th scope="col">Heure d'entrée</th>
+                                <th scope="col">Heure de sortie</th>
+                                <th scope="col">Temps mis au service</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php for($k = 0; $k < count($pointagesSuccess); $k++): ?>
+                                <tr class="text-center">
+                                    <td><?php echo e($k + 1); ?></td>
+                                    <td>
+                                        <a href="<?php echo e(route("personnel.dashboard", ["structure_id" => $structure->id, "personnel_id" => $pointagesSuccess[$k]->personnel->id])); ?>">
+                                            <?php echo e($pointagesSuccess[$k]->personnel->nom." ".$pointagesSuccess[$k]->personnel->prenom); ?>
+
+                                        </a>
+                                    </td>
+                                    <?php if($pointagesSuccess[$k]->personnel->sexe == "Male"): ?>
+                                        <td><?php echo e(__("Masculin")); ?></td>
+                                    <?php elseif($pointagesSuccess[$k]->personnel->sexe == "Female"): ?>
+                                        <td><?php echo e(__("Feminin")); ?></td>
+                                    <?php endif; ?>
+                                    <td><?php echo e($pointagesSuccess[$k]->structure->nom); ?></td>
+                                    <td><?php echo e($pointagesSuccess[$k]->poste->nom); ?></td>
+                                    <td><?php echo e($pointagesSuccess[$k]["date"]); ?></td>
+                                    <td><?php echo e($pointagesSuccess[$k]["entree"]); ?></td>
+                                    <td><?php echo e($pointagesSuccess[$k]["sortie"]); ?></td>
+                                    <td><?php echo e($pointagesSuccess[$k]["total"]); ?></td>
+                                </tr>
+                            <?php endfor; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end row-->
+            </div><!-- end card-body -->
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Pointages échoués du personnel</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive table-card">
+                        <table class="table table-nowrap table-striped-columns mb-0">
+                            <thead class="table-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom(s) et prénom(s)</th>
+                                <th scope="col">Sexe</th>
+                                <th scope="col">Structure</th>
+                                <th scope="col">Poste</th>
+                                <th scope="col">Date de pointage</th>
+                                <th scope="col">Heure d'entrée</th>
+                                <th scope="col">Heure de sortie</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php for($k = 0; $k < count($echoues); $k++): ?>
+                                <tr class="text-center">
+                                    <td><?php echo e($k + 1); ?></td>
+                                    <td>
+                                        <a href="<?php echo e(route("personnel.dashboard", ["structure_id" => $structure->id, "personnel_id" => $echoues[$k]["id"]])); ?>">
+                                            <?php echo e($echoues[$k]["nom"]." ".$echoues[$k]["prenom"]); ?>
+
+                                        </a>
+                                    </td>
+                                    <?php if($echoues[$k]["sexe"] == "Male"): ?>
+                                        <td><?php echo e(__("Masculin")); ?></td>
+                                    <?php elseif($echoues[$k]["sexe"] == "Female"): ?>
+                                        <td><?php echo e(__("Feminin")); ?></td>
+                                    <?php endif; ?>
+                                    <td><?php echo e($echoues[$k]["structure"]); ?></td>
+                                    <td><?php echo e($echoues[$k]["poste"]); ?></td>
+                                    <td><?php echo e($echoues[$k]["date"]); ?></td>
+                                    <td><?php echo e($echoues[$k]["entree"]); ?></td>
+                                    <td><?php echo e($echoues[$k]["sortie"]); ?></td>
+                                </tr>
+                            <?php endfor; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end row-->
+            </div><!-- end card-body -->
+        </div>
+    </div>
+
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('script'); ?>
@@ -269,6 +455,24 @@
                 }
             }
         });
+
+        const ratio = document.getElementById('ratioChart')
+
+        new Chart(ratio, {
+            type: 'pie',
+            data: {
+                labels: ["Réussis", "Rejetés"],
+                datasets: [{
+                    label: 'Ratio pointages réussis/rejeté',
+                    data: ["<?php echo e(count($pointagesSuccess)); ?>", "<?php echo e(count($pointagesFail)); ?>"],
+                    backgroundColor: [
+                        "rgb(69, 175, 217)",
+                        "rgb(255,0,0)"
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+        })
 
     </script>
 
