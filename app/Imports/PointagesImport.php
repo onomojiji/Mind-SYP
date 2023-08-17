@@ -7,8 +7,11 @@ use App\Models\Pointage;
 use App\Models\PointageImport;
 use App\Models\Poste;
 use App\Models\Structure;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToArray;
 
 class PointagesImport implements ToArray
@@ -26,12 +29,30 @@ class PointagesImport implements ToArray
                 "sexe" => $array[$i][2],
             ]);
 
-            // creation d'utilisateur pour les directeurs
+            // vérification du nom de la structure
+            // Si ce nom est égal à RESPONSABLES
+            if ($array[$i][3] == "RESPONSABLES"){ // si c'est un responsable, alors
+                $structurePersonnel = Str::remove([" ", "CHEF", "DIRECTEUR"], $array[$i][4]);
+                // on teste voir si l4utilisateur existe
+                $isUser = User::where("email", Str::lower(Str::remove([" ", "-", "M.", "Mme.", "Mr", "Mrs","Miss"], $array[$i][0].$array[$i][1]))."@minddevel.gov.cm")->first();
+                // on crès un utilisateur associé si il n4existe pas
+                $isUser?
+                     :
+                    User::create(
+                    [
+                        "email" => Str::lower(Str::remove([" ", "-", "M.", "Mme.", "Mr", "Mrs","Miss"], $array[$i][0].$array[$i][1]))."@minddevel.gov.cm",
+                        "password" => Hash::make("Mindsyp2023"),
+                        "personnel_id" => $personnel->id
+                    ]
+                );
+            }else{
+                $structurePersonnel = $array[$i][3];
+            }
 
             // trouver la structure
-            $isStructure = Structure::where("nom", $array[$i][3])->first();
+            $isStructure = Structure::where("nom", $structurePersonnel)->first();
             $isStructure ? $structure = $isStructure : $structure = Structure::create([
-                "nom" => $array[$i][3]
+                "nom" => $structurePersonnel
             ]);
 
             // trouver le poste

@@ -31,6 +31,8 @@ Route::middleware(["auth"])->group(function (){
         Route::get('/importation/add', 'create')->name("importation.create");
         Route::get('/importation/list', 'index')->name("importation.list");
         Route::post('/importation/add', 'store')->name("importation.store");
+        Route::post('/structure/{structure_id}/export', 'exportStructure')->name("export.structure");
+        Route::post('/structure/{structure_id}/{personnel_id}/export', 'exportPersonnel')->name("export.personnel");
     });
 
     Route::controller(\App\Http\Controllers\Admin\StructureController::class)->group(function () {

@@ -65,18 +65,6 @@ class StructureController extends Controller
                 ->get();
         }
 
-        $pointages = Pointage::where("structure_id", $id)->orderBy("date")->get();
-
-        $pointagesReussis = Pointage::where("structure_id", $id)->where("entree","!=", null)->where("sortie", "!=", null)->get();
-
-        $pointagesEchoue = DB::table('pointages')
-            ->where('structure_id', '=', $id)
-            ->where(function (Builder $query) {
-                $query->where('entree', null)
-                    ->orWhere('sortie', null);
-            })
-            ->get();
-
         $echouePointages = [];
         foreach ($pointagesEchoue as $pe){
             $personnel = Personnel::find($pe->personnel_id);
@@ -235,6 +223,7 @@ class StructureController extends Controller
                 'mme' => $mme,
                 'hms' => intdiv($hms,1),
                 'mms' => $mms,
+                'structure' => $structure,
             ]
         );
 

@@ -6,10 +6,6 @@
     <?php $__env->slot('title'); ?> Tableau de bord MINDDEVEL <?php $__env->endSlot(); ?>
     <?php echo $__env->renderComponent(); ?>
 
-    <?php $__env->startSection('css'); ?>
-        <link rel="stylesheet" href="<?php echo e(URL::asset('assets/libs/gridjs/gridjs.min.css')); ?>">
-    <?php $__env->stopSection(); ?>
-
     <form method="get" action="<?php echo e(route("root")); ?>">
         <div class="row ">
 
@@ -123,22 +119,22 @@
                         </div><!-- end col -->
                         <div class="col col-lg border-end">
                             <div class="mt-3 mt-lg-0 py-4 px-2">
-                                <h5 class="text-muted text-uppercase fs-13">Heures moyenne d'arrivée
-                                </h5>
+                                <h6 class="text-muted text-uppercase fs-13">Heures moyenne d'arrivée
+                                </h6>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hme); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mme); ?>">0</span> min</h2>
+                                        <h3 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hme); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mme); ?>">0</span> min</h3>
                                     </div>
                                 </div>
                             </div>
                         </div><!-- end col -->
                         <div class="col col-lg">
                             <div class="mt-3 mt-lg-0 py-4 px-2">
-                                <h5 class="text-muted text-uppercase fs-13">Heure moyenne de départ
-                                </h5>
+                                <h6 class="text-muted text-uppercase fs-13">Heure moyenne de départ
+                                </h6>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hms); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mms); ?>">0</span> min</h2>
+                                        <h3 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hms); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mms); ?>">0</span> min</h3>
                                     </div>
                                 </div>
                             </div>

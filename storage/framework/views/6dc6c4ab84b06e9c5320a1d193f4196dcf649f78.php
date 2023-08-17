@@ -10,6 +10,79 @@
         <link rel="stylesheet" href="<?php echo e(URL::asset('assets/libs/gridjs/gridjs.min.css')); ?>">
     <?php $__env->stopSection(); ?>
 
+    <form method="get" action="<?php echo e(route("personnel.dashboard", ["structure_id" => $structure->id, "personnel_id" => $personnel->id])); ?>">
+        <div class="row ">
+
+            <div class="col-md-6">
+                <div class="row">
+
+                    <div class="col-md-1 my-2 text-center"><strong>De</strong></div>
+
+                    <div class="col-md-6">
+                        <select class="form-select mb-3" name="moisStart">
+                            <option value="1">JANVIER</option>
+                            <option value="2">FEVRIER</option>
+                            <option value="3">MARS</option>
+                            <option value="4">AVRIL</option>
+                            <option value="5">MAI</option>
+                            <option value="6">JUIN</option>
+                            <option value="7">JUILLET</option>
+                            <option value="8">AOÛT</option>
+                            <option value="9">SEPTEMBRE</option>
+                            <option value="10">OCTOBRE</option>
+                            <option value="11">NOVEMBRE</option>
+                            <option value="12">DECEMBRE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-select mb-3" name="anneeStart">
+                            <?php for($i = 2018; $i <= \Illuminate\Support\Carbon::now()->year; $i++): ?>
+                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="row">
+
+                    <div class="col-md-1 my-2 text-center"><strong>A</strong></div>
+
+                    <div class="col-md-6">
+                        <select class="form-select mb-3" name="moisEnd">
+                            <option value="1" <?php if(\Illuminate\Support\Carbon::now()->month == 1): ?> selected <?php endif; ?>>JANVIER</option>
+                            <option value="2" <?php if(\Illuminate\Support\Carbon::now()->month == 2): ?> selected <?php endif; ?>>FEVRIER</option>
+                            <option value="3" <?php if(\Illuminate\Support\Carbon::now()->month == 3): ?> selected <?php endif; ?>>MARS</option>
+                            <option value="4" <?php if(\Illuminate\Support\Carbon::now()->month == 4): ?> selected <?php endif; ?>>AVRIL</option>
+                            <option value="5" <?php if(\Illuminate\Support\Carbon::now()->month == 5): ?> selected <?php endif; ?>>MAI</option>
+                            <option value="6" <?php if(\Illuminate\Support\Carbon::now()->month == 6): ?> selected <?php endif; ?>>JUIN</option>
+                            <option value="7" <?php if(\Illuminate\Support\Carbon::now()->month == 7): ?> selected <?php endif; ?>>JUILLET</option>
+                            <option value="8" <?php if(\Illuminate\Support\Carbon::now()->month == 8): ?> selected <?php endif; ?>>AOÛT</option>
+                            <option value="9" <?php if(\Illuminate\Support\Carbon::now()->month == 9): ?> selected <?php endif; ?>>SEPTEMBRE</option>
+                            <option value="10" <?php if(\Illuminate\Support\Carbon::now()->month == 10): ?> selected <?php endif; ?>>OCTOBRE</option>
+                            <option value="11" <?php if(\Illuminate\Support\Carbon::now()->month == 11): ?> selected <?php endif; ?>>NOVEMBRE</option>
+                            <option value="12" <?php if(\Illuminate\Support\Carbon::now()->month == 12): ?> selected <?php endif; ?>>DECEMBRE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-select mb-3" name="anneeEnd">
+                            <?php for($j = \Illuminate\Support\Carbon::now()->year; $j >= 2018; $j--): ?>
+                                <option value="<?php echo e($j); ?>"><?php echo e($j); ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1 my-md-0 mb-3">
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+
+        </div>
+
+    </form>
+
     <div class="row">
         <div class="col-xl-12">
             <div class="card crm-widget">
@@ -28,8 +101,7 @@
                         </div><!-- end col -->
                         <div class="col col-lg border-end">
                             <div class="mt-3 mt-md-0 py-4 px-2">
-                                <h5 class="text-muted text-uppercase fs-13">Pointages réussie
-                                </h5>
+                                <h5 class="text-muted text-uppercase fs-13">Pointages réussie</h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-3">
                                         <h2 class="mb-0 text-success"><span class="counter-value" data-target="<?php echo e(count($pointagesSuccess)); ?>">0</span></h2>
@@ -39,8 +111,7 @@
                         </div><!-- end col -->
                         <div class="col col-lg border-end">
                             <div class="mt-3 mt-md-0 py-4 px-2">
-                                <h5 class="text-muted text-uppercase fs-13">Pointages Rejetés
-                                </h5>
+                                <h5 class="text-muted text-uppercase fs-13">Pointages Rejetés</h5>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-3">
                                         <h2 class="mb-0 text-danger"><span class="counter-value" data-target="<?php echo e(count($pointagesFail)); ?>">0</span></h2>
@@ -50,22 +121,22 @@
                         </div><!-- end col -->
                         <div class="col col-lg border-end">
                             <div class="mt-3 mt-lg-0 py-4 px-2">
-                                <h5 class="text-muted text-uppercase fs-13">Heures moyenne d'arrivée
-                                </h5>
+                                <h6 class="text-muted text-uppercase fs-13">Heures moyenne d'arrivée
+                                </h6>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hme); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mme); ?>">0</span> min</h2>
+                                        <h3 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hme); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mme); ?>">0</span> min</h3>
                                     </div>
                                 </div>
                             </div>
                         </div><!-- end col -->
                         <div class="col col-lg">
                             <div class="mt-3 mt-lg-0 py-4 px-2">
-                                <h5 class="text-muted text-uppercase fs-13">Heure moyenne de départ
-                                </h5>
+                                <h6 class="text-muted text-uppercase fs-13">Heure moyenne de départ
+                                </h6>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hms); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mms); ?>">0</span> min</h2>
+                                        <h3 class="mb-0 text-info"><span class="counter-value" data-target="<?php echo e($hms); ?>">0</span> h <span class="counter-value" data-target="<?php echo e($mms); ?>">0</span> min</h3>
                                     </div>
                                 </div>
                             </div>
@@ -167,23 +238,23 @@
                             </thead>
                             <tbody>
                             <?php for($k = 0; $k < count($pointagesSuccess); $k++): ?>
-                                <tr class="text-center">
+                                <tr>
                                     <td><?php echo e($k + 1); ?></td>
                                     <td>
                                         <?php echo e($pointagesSuccess[$k]->personnel->nom." ".$pointagesSuccess[$k]->personnel->prenom); ?>
 
                                     </td>
                                     <?php if($pointagesSuccess[$k]->personnel->sexe == "Male"): ?>
-                                        <td><?php echo e(__("Masculin")); ?></td>
+                                        <td class="text-center"><?php echo e(__("Masculin")); ?></td>
                                     <?php elseif($pointagesSuccess[$k]->personnel->sexe == "Female"): ?>
-                                        <td><?php echo e(__("Feminin")); ?></td>
+                                        <td class="text-center"><?php echo e(__("Feminin")); ?></td>
                                     <?php endif; ?>
-                                    <td><?php echo e($pointagesSuccess[$k]->structure->nom); ?></td>
-                                    <td><?php echo e($pointagesSuccess[$k]->poste->nom); ?></td>
-                                    <td><?php echo e($pointagesSuccess[$k]["date"]); ?></td>
-                                    <td><?php echo e($pointagesSuccess[$k]["entree"]); ?></td>
-                                    <td><?php echo e($pointagesSuccess[$k]["sortie"]); ?></td>
-                                    <td><?php echo e($pointagesSuccess[$k]["total"]); ?></td>
+                                    <td class="text-center"><?php echo e($pointagesSuccess[$k]->structure->nom); ?></td>
+                                    <td class="text-center"><?php echo e($pointagesSuccess[$k]->poste->nom); ?></td>
+                                    <td class="text-center"><?php echo e($pointagesSuccess[$k]["date"]); ?></td>
+                                    <td class="text-center"><?php echo e($pointagesSuccess[$k]["entree"]); ?></td>
+                                    <td class="text-center"><?php echo e($pointagesSuccess[$k]["sortie"]); ?></td>
+                                    <td class="text-center"><?php echo e($pointagesSuccess[$k]["total"]); ?></td>
                                 </tr>
                             <?php endfor; ?>
                             </tbody>
@@ -217,22 +288,22 @@
                             </thead>
                             <tbody>
                             <?php for($k = 0; $k < count($echoues); $k++): ?>
-                                <tr class="text-center">
-                                    <td><?php echo e($k + 1); ?></td>
+                                <tr>
+                                    <td ><?php echo e($k + 1); ?></td>
                                     <td>
                                         <?php echo e($echoues[$k]["nom"]." ".$echoues[$k]["prenom"]); ?>
 
                                     </td>
                                     <?php if($echoues[$k]["sexe"] == "Male"): ?>
-                                        <td><?php echo e(__("Masculin")); ?></td>
+                                        <td class="text-center"><?php echo e(__("Masculin")); ?></td>
                                     <?php elseif($echoues[$k]["sexe"] == "Female"): ?>
-                                        <td><?php echo e(__("Feminin")); ?></td>
+                                        <td class="text-center"><?php echo e(__("Feminin")); ?></td>
                                     <?php endif; ?>
-                                    <td><?php echo e($echoues[$k]["structure"]); ?></td>
-                                    <td><?php echo e($echoues[$k]["poste"]); ?></td>
-                                    <td><?php echo e($echoues[$k]["date"]); ?></td>
-                                    <td><?php echo e($echoues[$k]["entree"]); ?></td>
-                                    <td><?php echo e($echoues[$k]["sortie"]); ?></td>
+                                    <td class="text-center"><?php echo e($echoues[$k]["structure"]); ?></td>
+                                    <td class="text-center"><?php echo e($echoues[$k]["poste"]); ?></td>
+                                    <td class="text-center"><?php echo e($echoues[$k]["date"]); ?></td>
+                                    <td class="text-center"><?php echo e($echoues[$k]["entree"]); ?></td>
+                                    <td class="text-center"><?php echo e($echoues[$k]["sortie"]); ?></td>
                                 </tr>
                             <?php endfor; ?>
                             </tbody>

@@ -36,6 +36,10 @@
             <div class="d-flex align-items-center">
 
                 <div class="dropdown ms-1 topbar-head-dropdown header-item">
+                    @yield("download_button")
+                </div>
+
+                <div class="dropdown ms-1 topbar-head-dropdown header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @switch(Session::get('lang'))

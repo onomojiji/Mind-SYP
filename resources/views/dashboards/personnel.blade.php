@@ -11,6 +11,79 @@
         <link rel="stylesheet" href="{{ URL::asset('assets/libs/gridjs/gridjs.min.css') }}">
     @endsection
 
+    <form method="get" action="{{route("personnel.dashboard", ["structure_id" => $structure->id, "personnel_id" => $personnel->id])}}">
+        <div class="row ">
+
+            <div class="col-md-6">
+                <div class="row">
+
+                    <div class="col-md-1 my-2 text-center"><strong>De</strong></div>
+
+                    <div class="col-md-6">
+                        <select class="form-select mb-3" name="moisStart">
+                            <option value="1">JANVIER</option>
+                            <option value="2">FEVRIER</option>
+                            <option value="3">MARS</option>
+                            <option value="4">AVRIL</option>
+                            <option value="5">MAI</option>
+                            <option value="6">JUIN</option>
+                            <option value="7">JUILLET</option>
+                            <option value="8">AOÛT</option>
+                            <option value="9">SEPTEMBRE</option>
+                            <option value="10">OCTOBRE</option>
+                            <option value="11">NOVEMBRE</option>
+                            <option value="12">DECEMBRE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-select mb-3" name="anneeStart">
+                            @for($i = 2018; $i <= \Illuminate\Support\Carbon::now()->year; $i++)
+                                <option value="{{$i}}">{{$i}}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="row">
+
+                    <div class="col-md-1 my-2 text-center"><strong>A</strong></div>
+
+                    <div class="col-md-6">
+                        <select class="form-select mb-3" name="moisEnd">
+                            <option value="1" @if(\Illuminate\Support\Carbon::now()->month == 1) selected @endif>JANVIER</option>
+                            <option value="2" @if(\Illuminate\Support\Carbon::now()->month == 2) selected @endif>FEVRIER</option>
+                            <option value="3" @if(\Illuminate\Support\Carbon::now()->month == 3) selected @endif>MARS</option>
+                            <option value="4" @if(\Illuminate\Support\Carbon::now()->month == 4) selected @endif>AVRIL</option>
+                            <option value="5" @if(\Illuminate\Support\Carbon::now()->month == 5) selected @endif>MAI</option>
+                            <option value="6" @if(\Illuminate\Support\Carbon::now()->month == 6) selected @endif>JUIN</option>
+                            <option value="7" @if(\Illuminate\Support\Carbon::now()->month == 7) selected @endif>JUILLET</option>
+                            <option value="8" @if(\Illuminate\Support\Carbon::now()->month == 8) selected @endif>AOÛT</option>
+                            <option value="9" @if(\Illuminate\Support\Carbon::now()->month == 9) selected @endif>SEPTEMBRE</option>
+                            <option value="10" @if(\Illuminate\Support\Carbon::now()->month == 10) selected @endif>OCTOBRE</option>
+                            <option value="11" @if(\Illuminate\Support\Carbon::now()->month == 11) selected @endif>NOVEMBRE</option>
+                            <option value="12" @if(\Illuminate\Support\Carbon::now()->month == 12) selected @endif>DECEMBRE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-select mb-3" name="anneeEnd">
+                            @for($j = \Illuminate\Support\Carbon::now()->year; $j >= 2018; $j--)
+                                <option value="{{$j}}">{{$j}}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1 my-md-0 mb-3">
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+
+        </div>
+
+    </form>
+
     <div class="row">
         <div class="col-xl-12">
             <div class="card crm-widget">
@@ -49,22 +122,22 @@
                         </div><!-- end col -->
                         <div class="col col-lg border-end">
                             <div class="mt-3 mt-lg-0 py-4 px-2">
-                                <h5 class="text-muted text-uppercase fs-13">Heures moyenne d'arrivée
-                                </h5>
+                                <h6 class="text-muted text-uppercase fs-13">Heures moyenne d'arrivée
+                                </h6>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="{{$hme}}">0</span> h <span class="counter-value" data-target="{{$mme}}">0</span> min</h2>
+                                        <h3 class="mb-0 text-info"><span class="counter-value" data-target="{{$hme}}">0</span> h <span class="counter-value" data-target="{{$mme}}">0</span> min</h3>
                                     </div>
                                 </div>
                             </div>
                         </div><!-- end col -->
                         <div class="col col-lg">
                             <div class="mt-3 mt-lg-0 py-4 px-2">
-                                <h5 class="text-muted text-uppercase fs-13">Heure moyenne de départ
-                                </h5>
+                                <h6 class="text-muted text-uppercase fs-13">Heure moyenne de départ
+                                </h6>
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-0">
-                                        <h2 class="mb-0 text-info"><span class="counter-value" data-target="{{$hms}}">0</span> h <span class="counter-value" data-target="{{$mms}}">0</span> min</h2>
+                                        <h3 class="mb-0 text-info"><span class="counter-value" data-target="{{$hms}}">0</span> h <span class="counter-value" data-target="{{$mms}}">0</span> min</h3>
                                     </div>
                                 </div>
                             </div>
@@ -166,22 +239,22 @@
                             </thead>
                             <tbody>
                             @for($k = 0; $k < count($pointagesSuccess); $k++)
-                                <tr class="text-center">
+                                <tr>
                                     <td>{{$k + 1}}</td>
                                     <td>
                                         {{$pointagesSuccess[$k]->personnel->nom." ".$pointagesSuccess[$k]->personnel->prenom}}
                                     </td>
                                     @if($pointagesSuccess[$k]->personnel->sexe == "Male")
-                                        <td>{{__("Masculin")}}</td>
+                                        <td class="text-center">{{__("Masculin")}}</td>
                                     @elseif($pointagesSuccess[$k]->personnel->sexe == "Female")
-                                        <td>{{__("Feminin")}}</td>
+                                        <td class="text-center">{{__("Feminin")}}</td>
                                     @endif
-                                    <td>{{$pointagesSuccess[$k]->structure->nom}}</td>
-                                    <td>{{$pointagesSuccess[$k]->poste->nom}}</td>
-                                    <td>{{$pointagesSuccess[$k]["date"]}}</td>
-                                    <td>{{$pointagesSuccess[$k]["entree"]}}</td>
-                                    <td>{{$pointagesSuccess[$k]["sortie"]}}</td>
-                                    <td>{{$pointagesSuccess[$k]["total"]}}</td>
+                                    <td class="text-center">{{$pointagesSuccess[$k]->structure->nom}}</td>
+                                    <td class="text-center">{{$pointagesSuccess[$k]->poste->nom}}</td>
+                                    <td class="text-center">{{$pointagesSuccess[$k]["date"]}}</td>
+                                    <td class="text-center">{{$pointagesSuccess[$k]["entree"]}}</td>
+                                    <td class="text-center">{{$pointagesSuccess[$k]["sortie"]}}</td>
+                                    <td class="text-center">{{$pointagesSuccess[$k]["total"]}}</td>
                                 </tr>
                             @endfor
                             </tbody>
@@ -215,21 +288,21 @@
                             </thead>
                             <tbody>
                             @for($k = 0; $k < count($echoues); $k++)
-                                <tr class="text-center">
-                                    <td>{{$k + 1}}</td>
+                                <tr>
+                                    <td >{{$k + 1}}</td>
                                     <td>
                                         {{$echoues[$k]["nom"]." ".$echoues[$k]["prenom"]}}
                                     </td>
                                     @if($echoues[$k]["sexe"] == "Male")
-                                        <td>{{__("Masculin")}}</td>
+                                        <td class="text-center">{{__("Masculin")}}</td>
                                     @elseif($echoues[$k]["sexe"] == "Female")
-                                        <td>{{__("Feminin")}}</td>
+                                        <td class="text-center">{{__("Feminin")}}</td>
                                     @endif
-                                    <td>{{$echoues[$k]["structure"]}}</td>
-                                    <td>{{$echoues[$k]["poste"]}}</td>
-                                    <td>{{$echoues[$k]["date"]}}</td>
-                                    <td>{{$echoues[$k]["entree"]}}</td>
-                                    <td>{{$echoues[$k]["sortie"]}}</td>
+                                    <td class="text-center">{{$echoues[$k]["structure"]}}</td>
+                                    <td class="text-center">{{$echoues[$k]["poste"]}}</td>
+                                    <td class="text-center">{{$echoues[$k]["date"]}}</td>
+                                    <td class="text-center">{{$echoues[$k]["entree"]}}</td>
+                                    <td class="text-center">{{$echoues[$k]["sortie"]}}</td>
                                 </tr>
                             @endfor
                             </tbody>

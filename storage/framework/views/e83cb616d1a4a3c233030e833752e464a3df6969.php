@@ -6,49 +6,41 @@
         <?php $__env->slot('title'); ?> Nouvelle importation <?php $__env->endSlot(); ?>
     <?php echo $__env->renderComponent(); ?>
 
-    <div class="row">
-        <div class="col">
+        <div class="row">
+            <div class="col-lg-12">
+                <form method="post" action="<?php echo e(route("importation.store")); ?>" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Importation du fichier excel</h4>
+                        </div>
+                        <div class="card-body">
+                            <?php if(@session('success')): ?>
+                                <div class="alert alert-success">
+                                    <?php echo e(session('success')); ?>
 
-            <div class="h-100">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <form method="post" action="<?php echo e(route("importation.store")); ?>" enctype="multipart/form-data">
-                            <?php echo csrf_field(); ?>
-                            <div class="card">
-                                <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1">Importation du fichier excel</h4>
                                 </div>
-                                <div class="card-body">
-                                    <?php if(@session('success')): ?>
-                                        <div class="alert alert-success">
-                                            <?php echo e(session('success')); ?>
+                            <?php endif; ?>
+                            <?php if(@session('fail')): ?>
+                                <div class="alert alert-success">
+                                    <?php echo e(session('fail')); ?>
 
-                                        </div>
-                                    <?php endif; ?>
-                                        <?php if(@session('fail')): ?>
-                                            <div class="alert alert-success">
-                                                <?php echo e(session('fail')); ?>
-
-                                            </div>
-                                        <?php endif; ?>
-                                    <div>
-                                        <input class="form-control" type="file" id="file" accept=".csv, .xlsx" name="file" required>
-                                    </div>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="row justify-content-end">
-                                        <button type="submit" class="btn btn-primary w-25">Importer</button>
-                                    </div>
-                                </div>
+                            <?php endif; ?>
+                            <div>
+                                <input class="form-control" type="file" id="file" accept=".csv, .xlsx" name="file" required>
                             </div>
-                        </form>
-
+                        </div>
+                        <div class="card-footer">
+                            <div class="row justify-content-end">
+                                <button type="submit" class="btn btn-primary w-25">Importer</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </form>
 
-        </div> <!-- end col -->
-    </div>
+            </div>
+        </div>
 
 <?php $__env->stopSection(); ?>
 

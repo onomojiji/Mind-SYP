@@ -55,14 +55,14 @@ class HomeController extends Controller
 
             $pointagesEchoue = Pointage::where("entree", null)->orWhere("sortie", null)->get();
         }else{
-            $pointages = Pointage::whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])->orderBy("date")->get();
+            $pointages = Pointage::whereBetween("date", [date("Y-d-m", strtotime("".$annee2."-01-".$mois2)), date("Y-d-m", strtotime("".$annee1."-01-".$mois1))])->orderBy("date")->get();
 
             $pointagesReussis = Pointage::where("entree","!=", null)
                 ->where("sortie", "!=", null)
-                ->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+                ->whereBetween("date", [date("Y-d-m", strtotime("".$annee2."-01-".$mois2)), date("Y-d-m", strtotime("".$annee1."-01-".$mois1))])
                 ->get();
 
-            $pointagesEchoue = DB::table("pointages")->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+            $pointagesEchoue = DB::table("pointages")->whereBetween("date", [date("Y-d-m", strtotime("".$annee2."-01-".$mois2)), date("Y-d-m", strtotime("".$annee1."-01-".$mois1))])
                 ->where(function (\Illuminate\Contracts\Database\Query\Builder $query) {
                     $query->where('entree', null)
                         ->orWhere('sortie', null);
@@ -86,10 +86,12 @@ class HomeController extends Controller
             $mms += date('i', strtotime($pr->sortie));
         }
 
-        $hme = intdiv($hme, count($pointagesReussis));
-        $mme = intdiv($mme, count($pointagesReussis));
-        $hms = intdiv($hms, count($pointagesReussis));
-        $mms = intdiv($mms, count($pointagesReussis));
+        if (count($pointagesReussis) > 0){
+            $hme = intdiv($hme, count($pointagesReussis));
+            $mme = intdiv($mme, count($pointagesReussis));
+            $hms = intdiv($hms, count($pointagesReussis));
+            $mms = intdiv($mms, count($pointagesReussis));
+        }
 
         return view(
             'index',
