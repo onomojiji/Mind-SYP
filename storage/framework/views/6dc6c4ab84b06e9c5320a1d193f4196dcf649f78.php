@@ -286,13 +286,12 @@
 
     <script type="text/javascript">
 
-        let dates = ["4 Jul","5 Jul","6 Jul","7 Jul","8 Jul","11 Jul","12 Jul","13 Jul","16 Jul","17 Jul","18 Jul","19 Jul","20 Jul","21 Jul","22 Jul","25 Jul","26 Jul","27 Jul","28 Jul","29 Jul"]
+        var dates = <?php echo json_encode($dates, 15, 512) ?>;
 
-        let heuresArrivee = ["7", "6", "7", "8", "7","7", "6", "8", "7", "6", "8","8","7","7", "6", "6", "7", "8", "8","10",]
+        var heuresArrivee = <?php echo json_encode($datesEntree, 15, 512) ?>;
+        var heuresDepart =  <?php echo json_encode($datesSortie, 15, 512) ?>;
 
-        let heuresDepart =  ["14", "16", "15", "15", "15","16", "16", "18", "14", "15", "15","15","17","17", "16", "16", "15", "16", "16","15",]
-
-        let tempsMoyen = ["8", "7", "7", "8", "6", "7", "6", "7","8","6","7", "6", "8", "7", "6", "7", "7", "8","8","7",]
+        var tempsMoyen = <?php echo json_encode($datesTotal, 15, 512) ?>;
 
         const ctx = document.getElementById('myChart');
 

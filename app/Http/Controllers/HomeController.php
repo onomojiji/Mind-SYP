@@ -7,6 +7,8 @@ use App\Models\Pointage;
 use App\Models\Poste;
 use App\Models\Structure;
 use App\Models\User;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +44,18 @@ class HomeController extends Controller
 
     public function root(Request $request)
     {
+        $dates = [];
+        $datesEntree = [];
+        $datesSortie = [];
+        $datesTotal = [];
+
+        $start = new Carbon('first day of last month');
+        $end = new Carbon('last day of last month');
+
+        $period = CarbonPeriod::create('' . $start->year .'-' . $start->month.'-' .$start->day.'', ''.$end->year.'-'. $end->month.'-'.$end->day.'');
+        foreach ($period as $date) {
+            array_push($dates, date("d-M-Y", strtotime($date)));
+        }
 
         if (Auth::user()->is_admin){
 
@@ -51,11 +65,44 @@ class HomeController extends Controller
 
             $pointagesEchoue = Pointage::where("entree", null)->orWhere("sortie", null)->get();
 
-            $pointagesTotal = [
-                "date" => [],
-                "entree" => [],
-                "sortie" => [],
-            ];
+            // algorithme d'ajout des heures moyennes par date
+            foreach ($dates as $date){
+                $allDayPointages = Pointage::where("date", date("Y-m-d", strtotime($date)))->get();
+
+                $hmej = $hmsj = 0;
+
+                if (count($allDayPointages) > 0){
+
+                    foreach ($allDayPointages as $pjr){
+                        $hmej += date('H', strtotime($pjr->entree));
+                        $hmsj += date('H', strtotime($pjr->sortie));
+                    }
+
+                    $hmej = intdiv($hmej, count($allDayPointages));
+                    $hmsj = intdiv($hmsj, count($allDayPointages));
+                    $total = $hmsj - $hmej;
+
+                }
+
+                if ($hmej == 0 && $hmsj != 0){
+                    array_push($datesEntree, "");
+                    array_push($datesTotal, "");
+                }elseif ($hmej != 0 && $hmsj == 0){
+                    array_push($datesSortie, "");
+                    array_push($datesTotal, "");
+                }elseif ($hmej == 0 && $hmsj == 0){
+                    array_push($datesEntree, "");
+                    array_push($datesSortie, "");
+                    array_push($datesTotal, "");
+                }else{
+                    array_push($datesEntree, $hmej);
+                    array_push($datesSortie, $hmsj);
+                    array_push($datesTotal, $total);
+                }
+
+            }
+
+            // Fin
 
             $hme = $hms = $mme = $mms = 0;
 
@@ -77,14 +124,17 @@ class HomeController extends Controller
             return view(
                 'index',
                 [
-                    'pointages' => $pointagesTotal,
                     "nbPointages" => $pointages,
                     "pointagesSuccess" => $pointagesReussis,
                     "pointagesFail" => $pointagesEchoue,
                     'hme' => intdiv($hme,1),
                     'mme' => $mme,
                     'hms' => intdiv($hms,1),
-                    'mms' => $mms
+                    'mms' => $mms,
+                    "dates" => $dates,
+                    "datesEntree" => $datesEntree,
+                    "datesSortie" => $datesSortie,
+                    "datesTotal" => $datesTotal
                 ]
             );
 
@@ -94,11 +144,10 @@ class HomeController extends Controller
             $mois = $request->mois;
             $annee = $request->annee;
 
-            $pointagesTotal = [
-                "date" => [],
-                "entree" => [],
-                "sortie" => [],
-            ];
+            $dates = [];
+            $datesEntree = [];
+            $datesSortie = [];
+            $datesTotal = [];
 
             $personnels = [];
 
@@ -116,6 +165,55 @@ class HomeController extends Controller
                             ->orWhere('sortie', null);
                     })
                     ->get();
+
+                $start = new Carbon('first day of last month');
+                $end = new Carbon('last day of last month');
+
+                $period = CarbonPeriod::create('' . $start->year .'-' . $start->month.'-' .$start->day.'', ''.$end->year.'-'. $end->month.'-'.$end->day.'');
+                foreach ($period as $date) {
+                    array_push($dates, date("d-M-Y", strtotime($date)));
+                }
+
+                // algorithme d'ajout des heures moyennes par date
+                foreach ($dates as $date){
+                    $allDayPointages = Pointage::where("date", date("Y-m-d", strtotime($date)))
+                        ->where("structure_id", $structure->id)
+                        ->get();
+
+                    $hmej = $hmsj = 0;
+
+                    if (count($allDayPointages) > 0){
+
+                        foreach ($allDayPointages as $pjr){
+                            $hmej += date('H', strtotime($pjr->entree));
+                            $hmsj += date('H', strtotime($pjr->sortie));
+                        }
+
+                        $hmej = intdiv($hmej, count($allDayPointages));
+                        $hmsj = intdiv($hmsj, count($allDayPointages));
+                        $total = $hmsj - $hmej;
+
+                    }
+
+                    if ($hmej == 0 && $hmsj != 0){
+                        array_push($datesEntree, "");
+                        array_push($datesTotal, "");
+                    }elseif ($hmej != 0 && $hmsj == 0){
+                        array_push($datesSortie, "");
+                        array_push($datesTotal, "");
+                    }elseif ($hmej == 0 && $hmsj == 0){
+                        array_push($datesEntree, "");
+                        array_push($datesSortie, "");
+                        array_push($datesTotal, "");
+                    }else{
+                        array_push($datesEntree, $hmej);
+                        array_push($datesSortie, $hmsj);
+                        array_push($datesTotal, $total);
+                    }
+
+                }
+
+                // Fin
             }else{
 
                 $pointages = Pointage::where("structure_id", $structure->id)
@@ -140,6 +238,58 @@ class HomeController extends Controller
                             ->orWhere('sortie', null);
                     })
                     ->get();
+
+                $year = $annee;
+                $month = $request->mois;
+                $date_1 = Carbon::create($year, $month)->startOfMonth()->format('Y-m-d');
+                $date_2 = Carbon::create($year, $month)->lastOfMonth()->format('Y-m-d');
+
+                $period = CarbonPeriod::create($date_1, $date_2);
+                foreach ($period as $date) {
+                    array_push($dates, date("d-M-Y", strtotime($date)));
+                }
+
+                // algorithme d'ajout des heures moyennes par date
+                foreach ($dates as $date){
+                    $allDayPointages = Pointage::where("date", date("Y-m-d", strtotime($date)))
+                        ->where("structure_id", $structure->id)
+                        ->get();
+
+                    $hmej = $hmsj = 0;
+
+                    if (count($allDayPointages) > 0){
+
+                        foreach ($allDayPointages as $pjr){
+                            $hmej += date('H', strtotime($pjr->entree));
+                            $hmsj += date('H', strtotime($pjr->sortie));
+                        }
+
+                        $hmej = intdiv($hmej, count($allDayPointages));
+                        $hmsj = intdiv($hmsj, count($allDayPointages));
+                        $total = $hmsj - $hmej;
+
+                    }
+
+                    if ($hmej == 0 && $hmsj != 0){
+                        array_push($datesEntree, "");
+                        array_push($datesTotal, "");
+                    }elseif ($hmej != 0 && $hmsj == 0){
+                        array_push($datesSortie, "");
+                        array_push($datesTotal, "");
+                    }elseif ($hmej == 0 && $hmsj == 0){
+                        array_push($datesEntree, "");
+                        array_push($datesSortie, "");
+                        array_push($datesTotal, "");
+                    }else{
+                        array_push($datesEntree, $hmej);
+                        array_push($datesSortie, $hmsj);
+                        array_push($datesTotal, $total);
+                    }
+
+                }
+
+                // Fin
+
             }
 
             $echouePointages = [];
@@ -220,7 +370,6 @@ class HomeController extends Controller
                 'index',
                 [
                     "structure" => $structure,
-                    'pointages' => $pointagesTotal,
                     "personnels" => $personnels,
                     "nbPointages" => $pointages,
                     "pointagesSuccess" => $pointagesReussis,
@@ -230,6 +379,10 @@ class HomeController extends Controller
                     'mme' => $mme,
                     'hms' => intdiv($hms,1),
                     'mms' => $mms,
+                    "dates" => $dates,
+                    "datesEntree" => $datesEntree,
+                    "datesSortie" => $datesSortie,
+                    "datesTotal" => $datesTotal
                 ]
             );
 
