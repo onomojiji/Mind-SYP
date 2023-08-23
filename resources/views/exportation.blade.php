@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
 
-        <title>{{$structure->nom."_".$mois1."_".$annee1."_".$mois2."_".$annee2}}</title>
+        <title>{{$structure->nom."_".$mois."_".$annee}}</title>
 
         <style>
             body{
@@ -101,7 +101,7 @@
 
 
         <p style="font-size: 15px; text-align: center" class="text-center mt-5">
-            <strong><u>{{$structure->nom.", PERIODE DE ".$mois1." ".$annee1." A ".$mois2." ".$annee2}}</u> </strong>
+            <strong><u>{{$structure->nom.", PERIODE DE ".$mois." ".$annee}}</u> </strong>
 
 
         </p>

@@ -37,55 +37,57 @@
                     <a href="{{route("root")}}" class="nav-link"><i class="las la-tachometer-alt"></i> Accueil</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#dashboards-menu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="dashboards-menu">
-                        <i class="las la-building"></i> <span>Structures</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="dashboards-menu">
-                        <ul class="nav nav-sm flex-column">
-                            @foreach(\App\Models\Structure::orderBy("nom")->get() as $structure )
+                @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#dashboards-menu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="dashboards-menu">
+                            <i class="las la-building"></i> <span>Structures</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="dashboards-menu">
+                            <ul class="nav nav-sm flex-column">
+                                @foreach(\App\Models\Structure::orderBy("nom")->get() as $structure )
+                                    <li class="nav-item">
+                                        <a href="{{route("structure.dashboard", ["structure_id" => $structure->id])}}" class="nav-link">{{$structure->nom}}</a>
+                                    </li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span>ADMINISTRATION</span></li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#importations" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="importations">
+                            <i class="lar la-file-excel"></i> <span>Importations</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="importations">
+                            <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{route("structure.dashboard", ["structure_id" => $structure->id])}}" class="nav-link">{{$structure->nom}}</a>
+                                    <a href="{{route("importation.create")}}" class="nav-link">Nouvelle importation</a>
                                 </li>
-                            @endforeach
+                                <li class="nav-item">
+                                    <a href="{{route("importation.list")}}" class="nav-link">Lister les importations</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="menu-title"><i class="ri-more-fill"></i> <span>ADMINISTRATION</span></li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#importations" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="importations">
-                        <i class="lar la-file-excel"></i> <span>Importations</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="importations">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route("importation.create")}}" class="nav-link">Nouvelle importation</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route("importation.list")}}" class="nav-link">Lister les importations</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#users" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="users">
-                        <i class="lar la-user-circle"></i> <span>Utilisateurs</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="users">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route("users.create")}}" class="nav-link">Ajouter un utilisateur</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route("users.list")}}" class="nav-link">Lister les utilisateurs</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#users" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="users">
+                            <i class="lar la-user-circle"></i> <span>Utilisateurs</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="users">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{route("users.create")}}" class="nav-link">Ajouter un utilisateur</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route("users.list")}}" class="nav-link">Lister les utilisateurs</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
 
             </ul>
         </div>

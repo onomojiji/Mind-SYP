@@ -105,19 +105,6 @@
     </div>
     <!-- end auth page content -->
 
-    <!-- footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-center">
-                        Copyright &copy; <span id="date"></span> <a class="fw-bold text-success" href="https://www.minddevel.gov.cm" target="_blank">MINDDEVEL CAMEROUN</a>, Tous droits réservés.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- end Footer -->
 </div>
 <!-- end auth-page-wrapper -->
 
@@ -135,15 +122,7 @@
 <script src="<?php echo e(asset("assets/js/pages/particles.app.js")); ?> "></script>
 <!-- password-addon init -->
 <script src="<?php echo e(asset("assets/js/pages/password-addon.init.js")); ?> "></script>
-<script>
-    var today = new Date();
-    var date = today.getFullYear()
-    if(date===2023){
-        document.getElementById("date").innerHTML = 2023;
-    }else{
-        document.getElementById("date").innerHTML="2023 - " + date;
-    }
-</script>
+
 </body>
 
 </html>

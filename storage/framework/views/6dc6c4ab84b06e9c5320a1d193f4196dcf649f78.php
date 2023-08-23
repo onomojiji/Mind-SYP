@@ -11,72 +11,37 @@
     <?php $__env->stopSection(); ?>
 
     <form method="get" action="<?php echo e(route("personnel.dashboard", ["structure_id" => $structure->id, "personnel_id" => $personnel->id])); ?>">
-        <div class="row ">
+        <div class="row mb-0 mb-md-3">
 
-            <div class="col-md-6">
-                <div class="row">
+            <div class="col-md-2 my-2 text-center h5"><strong>Periode de :</strong></div>
 
-                    <div class="col-md-1 my-2 text-center"><strong>De</strong></div>
-
-                    <div class="col-md-6">
-                        <select class="form-select mb-3" name="moisStart">
-                            <option value="1">JANVIER</option>
-                            <option value="2">FEVRIER</option>
-                            <option value="3">MARS</option>
-                            <option value="4">AVRIL</option>
-                            <option value="5">MAI</option>
-                            <option value="6">JUIN</option>
-                            <option value="7">JUILLET</option>
-                            <option value="8">AOÛT</option>
-                            <option value="9">SEPTEMBRE</option>
-                            <option value="10">OCTOBRE</option>
-                            <option value="11">NOVEMBRE</option>
-                            <option value="12">DECEMBRE</option>
-                        </select>
-                    </div>
-                    <div class="col-md-5">
-                        <select class="form-select mb-3" name="anneeStart">
-                            <?php for($i = 2018; $i <= \Illuminate\Support\Carbon::now()->year; $i++): ?>
-                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
-                            <?php endfor; ?>
-                        </select>
-                    </div>
-                </div>
+            <div class="col-md-4">
+                <select class="form-select mb-3" name="mois">
+                    <option value="01" <?php if(\Illuminate\Support\Carbon::now()->month == 1): ?> selected <?php endif; ?>>JANVIER</option>
+                    <option value="02" <?php if(\Illuminate\Support\Carbon::now()->month == 2): ?> selected <?php endif; ?>>FEVRIER</option>
+                    <option value="03" <?php if(\Illuminate\Support\Carbon::now()->month == 3): ?> selected <?php endif; ?>>MARS</option>
+                    <option value="04" <?php if(\Illuminate\Support\Carbon::now()->month == 4): ?> selected <?php endif; ?>>AVRIL</option>
+                    <option value="05" <?php if(\Illuminate\Support\Carbon::now()->month == 5): ?> selected <?php endif; ?>>MAI</option>
+                    <option value="06" <?php if(\Illuminate\Support\Carbon::now()->month == 6): ?> selected <?php endif; ?>>JUIN</option>
+                    <option value="07" <?php if(\Illuminate\Support\Carbon::now()->month == 7): ?> selected <?php endif; ?>>JUILLET</option>
+                    <option value="08" <?php if(\Illuminate\Support\Carbon::now()->month == 8): ?> selected <?php endif; ?>>AOÛT</option>
+                    <option value="09" <?php if(\Illuminate\Support\Carbon::now()->month == 9): ?> selected <?php endif; ?>>SEPTEMBRE</option>
+                    <option value="10" <?php if(\Illuminate\Support\Carbon::now()->month == 10): ?> selected <?php endif; ?>>OCTOBRE</option>
+                    <option value="11" <?php if(\Illuminate\Support\Carbon::now()->month == 11): ?> selected <?php endif; ?>>NOVEMBRE</option>
+                    <option value="12" <?php if(\Illuminate\Support\Carbon::now()->month == 12): ?> selected <?php endif; ?>>DECEMBRE</option>
+                </select>
             </div>
 
-            <div class="col-md-5">
-                <div class="row">
-
-                    <div class="col-md-1 my-2 text-center"><strong>A</strong></div>
-
-                    <div class="col-md-6">
-                        <select class="form-select mb-3" name="moisEnd">
-                            <option value="1" <?php if(\Illuminate\Support\Carbon::now()->month == 1): ?> selected <?php endif; ?>>JANVIER</option>
-                            <option value="2" <?php if(\Illuminate\Support\Carbon::now()->month == 2): ?> selected <?php endif; ?>>FEVRIER</option>
-                            <option value="3" <?php if(\Illuminate\Support\Carbon::now()->month == 3): ?> selected <?php endif; ?>>MARS</option>
-                            <option value="4" <?php if(\Illuminate\Support\Carbon::now()->month == 4): ?> selected <?php endif; ?>>AVRIL</option>
-                            <option value="5" <?php if(\Illuminate\Support\Carbon::now()->month == 5): ?> selected <?php endif; ?>>MAI</option>
-                            <option value="6" <?php if(\Illuminate\Support\Carbon::now()->month == 6): ?> selected <?php endif; ?>>JUIN</option>
-                            <option value="7" <?php if(\Illuminate\Support\Carbon::now()->month == 7): ?> selected <?php endif; ?>>JUILLET</option>
-                            <option value="8" <?php if(\Illuminate\Support\Carbon::now()->month == 8): ?> selected <?php endif; ?>>AOÛT</option>
-                            <option value="9" <?php if(\Illuminate\Support\Carbon::now()->month == 9): ?> selected <?php endif; ?>>SEPTEMBRE</option>
-                            <option value="10" <?php if(\Illuminate\Support\Carbon::now()->month == 10): ?> selected <?php endif; ?>>OCTOBRE</option>
-                            <option value="11" <?php if(\Illuminate\Support\Carbon::now()->month == 11): ?> selected <?php endif; ?>>NOVEMBRE</option>
-                            <option value="12" <?php if(\Illuminate\Support\Carbon::now()->month == 12): ?> selected <?php endif; ?>>DECEMBRE</option>
-                        </select>
-                    </div>
-                    <div class="col-md-5">
-                        <select class="form-select mb-3" name="anneeEnd">
-                            <?php for($j = \Illuminate\Support\Carbon::now()->year; $j >= 2018; $j--): ?>
-                                <option value="<?php echo e($j); ?>"><?php echo e($j); ?></option>
-                            <?php endfor; ?>
-                        </select>
-                    </div>
-                </div>
+            <div class="col-md-4">
+                <select class="form-select mb-3" name="annee">
+                    <?php for($j = \Illuminate\Support\Carbon::now()->year; $j >= 2018; $j--): ?>
+                        <option value="<?php echo e($j); ?>"><?php echo e($j); ?></option>
+                    <?php endfor; ?>
+                </select>
             </div>
 
-            <div class="col-md-1 my-md-0 mb-3">
-                <button type="submit" class="btn btn-primary">Valider</button>
+            <div class="col-md-2 my-md-0 my-3">
+                <button type="submit" class="btn btn-primary w-100">Valider</button>
             </div>
 
         </div>

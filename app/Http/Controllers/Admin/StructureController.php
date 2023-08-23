@@ -15,10 +15,8 @@ class StructureController extends Controller
 {
     public function index(Request $request,int $id){
 
-        $mois1 = $request->moisStart;
-        $annee1 = $request->anneeStart;
-        $mois2 = $request->moisEnd;
-        $annee2 = $request->anneeEnd;
+        $mois = $request->mois;
+        $annee = $request->annee;
 
         $pointagesTotal = [
             "date" => [],
@@ -30,7 +28,7 @@ class StructureController extends Controller
 
         $hme = $hms = $mme = $mms = 0;
 
-        if ($mois1 = $mois2 = $annee1 = $annee2 == null){
+        if ($mois = $annee == null){
             $pointages = Pointage::where("structure_id", $id)->orderBy("date")->get();
 
             $pointagesReussis = Pointage::where("structure_id", $id)->where("entree","!=", null)->where("sortie", "!=", null)->get();
@@ -45,18 +43,21 @@ class StructureController extends Controller
         }else{
 
             $pointages = Pointage::where("structure_id", $id)
-                ->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+                ->where("annee", $annee)
+                ->where("mois", $request->mois)
                 ->orderBy("date")
                 ->get();
 
             $pointagesReussis = Pointage::where("structure_id", $id)
-                ->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+                ->where("annee", $annee)
+                ->where("mois", $request->mois)
                 ->where("entree","!=", null)
                 ->where("sortie", "!=", null)
                 ->get();
 
             $pointagesEchoue = DB::table('pointages')
-                ->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+                ->where("annee", $annee)
+                ->where("mois", $request->mois)
                 ->where('structure_id', '=', $id)
                 ->where(function (Builder $query) {
                     $query->where('entree', null)
@@ -111,8 +112,15 @@ class StructureController extends Controller
                     $structurePersonnel = $pointagePersonnel->structure;
                     $postePersonnel = $pointagePersonnel->poste;
 
-                    $nbPoints = count($personnel->pointages()->get());
-                    $nbPointReussis = count($personnel->pointages()->where("entree","!=",null)->where("sortie","!=",null)->get());
+                    if ($request->annee = $request->mois == null){
+                        $nbPoints = count($personnel->pointages()->get());
+                        $nbPointReussis = count($personnel->pointages()->where("entree","!=",null)->where("sortie","!=",null)->get());
+                    }else{
+                        $nbPoints = count($personnel->pointages()->where("mois", $request->mois)->where("annee", $annee)->get());
+
+                        $nbPointReussis = count($personnel->pointages()->where("mois", $request->mois)->where("annee", $annee)->where("entree","!=",null)->where("sortie","!=",null)->get());
+                    }
+
                     $nbPointEchoue = $nbPoints - $nbPointReussis;
 
                     $personnels[] = [

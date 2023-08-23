@@ -36,10 +36,10 @@ class PointageController extends Controller
 
     public function exportStructure(Request $request, int $id){
 
-        $mois1 = $request->moisStart;
-        $annee1 = $request->anneeStart;
-        $mois2 = $request->moisEnd;
-        $annee2 = $request->anneeEnd;
+        $mois = $request->mois;
+        $annee = $request->annee;
+
+        $structure = Structure::find($id);
 
         $pointagesTotal = [
             "date" => [],
@@ -49,19 +49,24 @@ class PointageController extends Controller
 
         $personnels = [];
 
+
+
         $pointages = Pointage::where("structure_id", $id)
-            ->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+            ->where("annee", $annee)
+            ->where("mois", $mois)
             ->orderBy("date")
             ->get();
 
         $pointagesReussis = Pointage::where("structure_id", $id)
-            ->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+            ->where("annee", $annee)
+            ->where("mois", $mois)
             ->where("entree","!=", null)
             ->where("sortie", "!=", null)
             ->get();
 
         $pointagesEchoue = DB::table('pointages')
-            ->whereBetween("date", [date("Y-m-d", strtotime("".$annee2."-".$mois2."01")), date("Y-m-d", strtotime("".$annee1."-".$mois1."01"))])
+            ->where("annee", $annee)
+            ->where("mois", $request->mois)
             ->where('structure_id', '=', $id)
             ->where(function (Builder $query) {
                 $query->where('entree', null)
@@ -100,9 +105,22 @@ class PointageController extends Controller
                     $structurePersonnel = $pointagePersonnel->structure;
                     $postePersonnel = $pointagePersonnel->poste;
 
-                    $nbPoints = count($personnel->pointages()->get());
-                    $nbPointReussis = count($personnel->pointages()->where("entree","!=",null)->where("sortie","!=",null)->get());
-                    $pointreussis = Pointage::where("personnel_id", $personnel->id)->where("entree","!=",null)->where("sortie","!=",null)->get();
+                    if ($request->annee = $request->mois == null){
+                        $nbPoints = count($personnel->pointages()->get());
+                        $nbPointReussis = count($personnel->pointages()->where("entree","!=",null)->where("sortie","!=",null)->get());
+                    }else{
+                        $nbPoints = count($personnel->pointages()->where("mois", $request->mois)->where("annee", $annee)->get());
+
+                        $nbPointReussis = count($personnel->pointages()->where("mois", $request->mois)->where("annee", $annee)->where("entree","!=",null)->where("sortie","!=",null)->get());
+                    }
+
+                    $pointreussis = Pointage::where("personnel_id", $personnel->id)
+                        ->where("annee", $annee)
+                        ->where("mois", $request->mois)
+                        ->where("entree","!=", null)
+                        ->where("sortie", "!=", null)
+                        ->get();
+
                     $nbPointEchoue = $nbPoints - $nbPointReussis;
 
                     $hme = $hms = $mme = $mms = 0;
@@ -141,75 +159,48 @@ class PointageController extends Controller
             }
         }
 
-        if($mois1 == 1){
-            $mois1 = "JANVIER";}
-        elseif($mois1 == 2){
-                $mois1 = "FEVRIER";}
-            elseif($mois1 == 3){
-                $mois1 = "MARS";}
-            elseif($mois1 == 4){
-                $mois1 = "AVRIL";}
-            elseif($mois1 == 5){
-                $mois1 = "MAI";}
-            elseif($mois1 == 6){
-                $mois1 = "JUIN";}
-            elseif($mois1 == 7){
-                $mois1 = "JUILLET";}
-            elseif($mois1 == 8){
-                $mois1 = "AOÛT";}
-            elseif($mois1 == 9){
-                $mois1 = "SEPTEMBRE";}
-            elseif($mois1 == 10){
-                $mois1 = "OCTOBRE";}
-            elseif($mois1 == 11){
-                $mois1 = "NOVEMBRE";}
-            elseif($mois1 == 12){
-                $mois1 = "DECEMBRE";}
-
-        if($mois2 == 1){
-            $mois2 = "JANVIER";}
-        elseif($mois2 == 2){
-            $mois2 = "FEVRIER";}
-        elseif($mois2 == 3){
-            $mois2 = "MARS";}
-        elseif($mois2 == 4){
-            $mois2 = "AVRIL";}
-        elseif($mois2 == 5){
-            $mois2 = "MAI";}
-        elseif($mois2 == 6){
-            $mois2 = "JUIN";}
-        elseif($mois2 == 7){
-            $mois2 = "JUILLET";}
-        elseif($mois2 == 8){
-            $mois2 = "AOÛT";}
-        elseif($mois2 == 9){
-            $mois2 = "SEPTEMBRE";}
-        elseif($mois2 == 10){
-            $mois2 = "OCTOBRE";}
-        elseif($mois2 == 11){
-            $mois2 = "NOVEMBRE";}
-        elseif($mois2 == 12){
-            $mois2 = "DECEMBRE";}
+        if($mois == 1){
+            $mois = "JANVIER";}
+        elseif($mois == 2){
+                $mois = "FEVRIER";}
+            elseif($mois == 3){
+                $mois = "MARS";}
+            elseif($mois == 4){
+                $mois = "AVRIL";}
+            elseif($mois == 5){
+                $mois = "MAI";}
+            elseif($mois == 6){
+                $mois = "JUIN";}
+            elseif($mois == 7){
+                $mois = "JUILLET";}
+            elseif($mois == 8){
+                $mois = "AOÛT";}
+            elseif($mois == 9){
+                $mois = "SEPTEMBRE";}
+            elseif($mois == 10){
+                $mois = "OCTOBRE";}
+            elseif($mois == 11){
+                $mois = "NOVEMBRE";}
+            elseif($mois == 12){
+                $mois = "DECEMBRE";}
 
 
          $pdf  = Pdf::loadView(
              'exportation',
              [
-                 "structure" => Structure::findOrfail($id),
+                 "structure" => $structure,
                  'pointages' => $pointagesTotal,
                  "personnels" => $personnels,
                  "nbPointages" => $pointages,
                  "pointagesSuccess" => $pointagesReussis,
                  "pointagesFail" => $pointagesEchoue,
                  "echoues" => $echouePointages,
-                 "mois1" => $mois1,
-                 "mois2" => $mois2,
-                 "annee1" => $annee1,
-                 "annee2" => $annee2
+                 "mois" => $mois,
+                 "annee" => $annee,
              ]
          )->setPaper('a4', 'landscape');
 
-        return $pdf->download($structure->nom."_".$mois1."_".$annee1."_".$mois2."_".$annee2.'.pdf');
+        return $pdf->download($structure->nom."_".$mois."_".$annee.'.pdf');
 
         // return view(
         //    'exportation',

@@ -4,12 +4,9 @@ namespace App\Imports;
 
 use App\Models\Personnel;
 use App\Models\Pointage;
-use App\Models\PointageImport;
 use App\Models\Poste;
 use App\Models\Structure;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToArray;
@@ -33,6 +30,7 @@ class PointagesImport implements ToArray
             // Si ce nom est égal à RESPONSABLES
             if ($array[$i][3] == "RESPONSABLES"){ // si c'est un responsable, alors
                 $structurePersonnel = Str::remove([" ", "CHEF", "DIRECTEUR"], $array[$i][4]);
+                $structurePersonnel == "DSI" ? $isAdmin = 1 : $isAdmin = 0;
                 // on teste voir si l4utilisateur existe
                 $isUser = User::where("email", Str::lower(Str::remove([" ", "-", "M.", "Mme.", "Mr", "Mrs","Miss"], $array[$i][0].$array[$i][1]))."@minddevel.gov.cm")->first();
                 // on crès un utilisateur associé si il n4existe pas
@@ -42,7 +40,8 @@ class PointagesImport implements ToArray
                     [
                         "email" => Str::lower(Str::remove([" ", "-", "M.", "Mme.", "Mr", "Mrs","Miss"], $array[$i][0].$array[$i][1]))."@minddevel.gov.cm",
                         "password" => Hash::make("Mindsyp2023"),
-                        "personnel_id" => $personnel->id
+                        "personnel_id" => $personnel->id,
+                        "is_admin" => $isAdmin
                     ]
                 );
             }else{
@@ -61,7 +60,9 @@ class PointagesImport implements ToArray
                 "nom" => $array[$i][4]
             ]);
 
-            $date = date("Y-m-d", strtotime($array[$i][5]));
+            $date = date("Y-d-m", strtotime($array[$i][5]));
+            $mois = date("m", strtotime($date));
+            $annee = date("Y", strtotime($array[$i][5]));
             $array[$i][6] != null ? $entree = date("H:i:s", strtotime($array[$i][6])) : $entree = null;
             $array[$i][7] != null ? $sortie = date("H:i:s", strtotime($array[$i][7])) : $sortie = null;
             $array[$i][8] != null ? $total = number_format($array[$i][8], 1, '.', '') : $total = null;
@@ -70,6 +71,8 @@ class PointagesImport implements ToArray
             $isPointage = Pointage::where("date", $date)
                 ->where("entree", $entree)
                 ->where("sortie", $sortie)
+                ->where("entree", $mois)
+                ->where("sortie", $annee)
                 ->where("total", $total)
                 ->where("personnel_id", $personnel->id)
                 ->where("structure_id", $structure->id)
@@ -79,6 +82,8 @@ class PointagesImport implements ToArray
             // création du pointage
             $isPointage ? $pointage = $isPointage : $pointage = Pointage::create([
                 "date" => $date,
+                "mois" => $mois,
+                "annee" => $annee,
                 "entree" => $entree,
                 "sortie" => $sortie,
                 "total" => $total,

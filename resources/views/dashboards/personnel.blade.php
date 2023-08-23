@@ -12,72 +12,37 @@
     @endsection
 
     <form method="get" action="{{route("personnel.dashboard", ["structure_id" => $structure->id, "personnel_id" => $personnel->id])}}">
-        <div class="row ">
+        <div class="row mb-0 mb-md-3">
 
-            <div class="col-md-6">
-                <div class="row">
+            <div class="col-md-2 my-2 text-center h5"><strong>Periode de :</strong></div>
 
-                    <div class="col-md-1 my-2 text-center"><strong>De</strong></div>
-
-                    <div class="col-md-6">
-                        <select class="form-select mb-3" name="moisStart">
-                            <option value="1">JANVIER</option>
-                            <option value="2">FEVRIER</option>
-                            <option value="3">MARS</option>
-                            <option value="4">AVRIL</option>
-                            <option value="5">MAI</option>
-                            <option value="6">JUIN</option>
-                            <option value="7">JUILLET</option>
-                            <option value="8">AOÛT</option>
-                            <option value="9">SEPTEMBRE</option>
-                            <option value="10">OCTOBRE</option>
-                            <option value="11">NOVEMBRE</option>
-                            <option value="12">DECEMBRE</option>
-                        </select>
-                    </div>
-                    <div class="col-md-5">
-                        <select class="form-select mb-3" name="anneeStart">
-                            @for($i = 2018; $i <= \Illuminate\Support\Carbon::now()->year; $i++)
-                                <option value="{{$i}}">{{$i}}</option>
-                            @endfor
-                        </select>
-                    </div>
-                </div>
+            <div class="col-md-4">
+                <select class="form-select mb-3" name="mois">
+                    <option value="01" @if(\Illuminate\Support\Carbon::now()->month == 1) selected @endif>JANVIER</option>
+                    <option value="02" @if(\Illuminate\Support\Carbon::now()->month == 2) selected @endif>FEVRIER</option>
+                    <option value="03" @if(\Illuminate\Support\Carbon::now()->month == 3) selected @endif>MARS</option>
+                    <option value="04" @if(\Illuminate\Support\Carbon::now()->month == 4) selected @endif>AVRIL</option>
+                    <option value="05" @if(\Illuminate\Support\Carbon::now()->month == 5) selected @endif>MAI</option>
+                    <option value="06" @if(\Illuminate\Support\Carbon::now()->month == 6) selected @endif>JUIN</option>
+                    <option value="07" @if(\Illuminate\Support\Carbon::now()->month == 7) selected @endif>JUILLET</option>
+                    <option value="08" @if(\Illuminate\Support\Carbon::now()->month == 8) selected @endif>AOÛT</option>
+                    <option value="09" @if(\Illuminate\Support\Carbon::now()->month == 9) selected @endif>SEPTEMBRE</option>
+                    <option value="10" @if(\Illuminate\Support\Carbon::now()->month == 10) selected @endif>OCTOBRE</option>
+                    <option value="11" @if(\Illuminate\Support\Carbon::now()->month == 11) selected @endif>NOVEMBRE</option>
+                    <option value="12" @if(\Illuminate\Support\Carbon::now()->month == 12) selected @endif>DECEMBRE</option>
+                </select>
             </div>
 
-            <div class="col-md-5">
-                <div class="row">
-
-                    <div class="col-md-1 my-2 text-center"><strong>A</strong></div>
-
-                    <div class="col-md-6">
-                        <select class="form-select mb-3" name="moisEnd">
-                            <option value="1" @if(\Illuminate\Support\Carbon::now()->month == 1) selected @endif>JANVIER</option>
-                            <option value="2" @if(\Illuminate\Support\Carbon::now()->month == 2) selected @endif>FEVRIER</option>
-                            <option value="3" @if(\Illuminate\Support\Carbon::now()->month == 3) selected @endif>MARS</option>
-                            <option value="4" @if(\Illuminate\Support\Carbon::now()->month == 4) selected @endif>AVRIL</option>
-                            <option value="5" @if(\Illuminate\Support\Carbon::now()->month == 5) selected @endif>MAI</option>
-                            <option value="6" @if(\Illuminate\Support\Carbon::now()->month == 6) selected @endif>JUIN</option>
-                            <option value="7" @if(\Illuminate\Support\Carbon::now()->month == 7) selected @endif>JUILLET</option>
-                            <option value="8" @if(\Illuminate\Support\Carbon::now()->month == 8) selected @endif>AOÛT</option>
-                            <option value="9" @if(\Illuminate\Support\Carbon::now()->month == 9) selected @endif>SEPTEMBRE</option>
-                            <option value="10" @if(\Illuminate\Support\Carbon::now()->month == 10) selected @endif>OCTOBRE</option>
-                            <option value="11" @if(\Illuminate\Support\Carbon::now()->month == 11) selected @endif>NOVEMBRE</option>
-                            <option value="12" @if(\Illuminate\Support\Carbon::now()->month == 12) selected @endif>DECEMBRE</option>
-                        </select>
-                    </div>
-                    <div class="col-md-5">
-                        <select class="form-select mb-3" name="anneeEnd">
-                            @for($j = \Illuminate\Support\Carbon::now()->year; $j >= 2018; $j--)
-                                <option value="{{$j}}">{{$j}}</option>
-                            @endfor
-                        </select>
-                    </div>
-                </div>
+            <div class="col-md-4">
+                <select class="form-select mb-3" name="annee">
+                    @for($j = \Illuminate\Support\Carbon::now()->year; $j >= 2018; $j--)
+                        <option value="{{$j}}">{{$j}}</option>
+                    @endfor
+                </select>
             </div>
 
-            <div class="col-md-1 my-md-0 mb-3">
-                <button type="submit" class="btn btn-primary">Valider</button>
+            <div class="col-md-2 my-md-0 my-3">
+                <button type="submit" class="btn btn-primary w-100">Valider</button>
             </div>
 
         </div>

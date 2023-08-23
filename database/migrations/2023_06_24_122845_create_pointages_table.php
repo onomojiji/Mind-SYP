@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Personnel::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Structure::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Poste::class)->constrained()->cascadeOnDelete();
+            $table->string('mois');
+            $table->string('annee');
             $table->date('date');
             $table->time('entree')->nullable();
             $table->time('sortie')->nullable();
