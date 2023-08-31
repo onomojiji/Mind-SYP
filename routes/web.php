@@ -44,6 +44,8 @@ Route::middleware(["auth"])->group(function (){
         Route::get('/users/add', 'create')->name("users.create");
         Route::get('/users/list', 'index')->name("users.list");
         Route::post('/users/add', 'store')->name("users.store");
+        Route::get("/users/edit/{user_id}", "edit")->name("users.edit");
+        Route::post("/users/edit/{user_id}", "update")->name("users.update");
     });
 
 });

@@ -135,7 +135,12 @@
                             <td>{{$personnels[$i]["hme"]."h".$personnels[$i]["mme"]."min"}}</td>
                             <td>{{$personnels[$i]["hms"]."h".$personnels[$i]["mms"]."min"}}</td>
                             <td>{{$personnels[$i]["nbPoints"]}}</td>
-                            <td>{{number_format(($personnels[$i]["nbPointsReussis"]/$personnels[$i]["nbPoints"]) * 100, 1)." %" }}</td>
+                            <td>
+                                @if($personnels[$i]["nbPoints"] > 0)
+                                    {{number_format(($personnels[$i]["nbPointsReussis"]/$personnels[$i]["nbPoints"]) * 100, 1)." %" }}
+                                @endif
+
+                            </td>
                             <td>{{$personnels[$i]["nbPointsEchoues"]}}</td>
                         </tr>
                     @endfor

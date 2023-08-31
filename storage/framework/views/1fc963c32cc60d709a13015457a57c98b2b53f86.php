@@ -135,7 +135,13 @@
                             <td><?php echo e($personnels[$i]["hme"]."h".$personnels[$i]["mme"]."min"); ?></td>
                             <td><?php echo e($personnels[$i]["hms"]."h".$personnels[$i]["mms"]."min"); ?></td>
                             <td><?php echo e($personnels[$i]["nbPoints"]); ?></td>
-                            <td><?php echo e(number_format(($personnels[$i]["nbPointsReussis"]/$personnels[$i]["nbPoints"]) * 100, 1)." %"); ?></td>
+                            <td>
+                                <?php if($personnels[$i]["nbPoints"] > 0): ?>
+                                    <?php echo e(number_format(($personnels[$i]["nbPointsReussis"]/$personnels[$i]["nbPoints"]) * 100, 1)." %"); ?>
+
+                                <?php endif; ?>
+
+                            </td>
                             <td><?php echo e($personnels[$i]["nbPointsEchoues"]); ?></td>
                         </tr>
                     <?php endfor; ?>

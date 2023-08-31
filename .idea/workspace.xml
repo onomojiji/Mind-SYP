@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d81881e2-aaa9-477c-9fa0-027dfff3503f" name="Changes" comment="Anvancement à 70%">
+      <change afterPath="$PROJECT_DIR$/resources/views/Users/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/views/8bf549fc1cd624581af3fc91d75afb798cd0cfc9.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StructureController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StructureController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboards/personnel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboards/personnel.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboards/structure.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboards/structure.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/5058976a69676f4306283fcd7eeb32c1ce9bf2e6.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/5058976a69676f4306283fcd7eeb32c1ce9bf2e6.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/6dc6c4ab84b06e9c5320a1d193f4196dcf649f78.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/6dc6c4ab84b06e9c5320a1d193f4196dcf649f78.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/76b116f3b9062c7f2dab956f8d50ea385a79740a.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/76b116f3b9062c7f2dab956f8d50ea385a79740a.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Users/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Users/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/exportation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/exportation.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/1fc963c32cc60d709a13015457a57c98b2b53f86.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/1fc963c32cc60d709a13015457a57c98b2b53f86.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/20ef42c97f07ed51df2369772e02fec076b667a7.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/20ef42c97f07ed51df2369772e02fec076b667a7.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/5048986717c305b408427646d5effaa49c981e49.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/5048986717c305b408427646d5effaa49c981e49.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +231,12 @@
       <workItem from="1692707206512" duration="3477000" />
       <workItem from="1692717411572" duration="6354000" />
       <workItem from="1692724251706" duration="621000" />
-      <workItem from="1692773680388" duration="26288000" />
+      <workItem from="1692773680388" duration="26561000" />
+      <workItem from="1692812199943" duration="1493000" />
+      <workItem from="1692967534014" duration="4855000" />
+      <workItem from="1692980877984" duration="6205000" />
+      <workItem from="1693142847642" duration="805000" />
+      <workItem from="1693481244950" duration="13530000" />
     </task>
     <task id="LOCAL-00001" summary="Anvancement à 70%">
       <option name="closed" value="true" />
