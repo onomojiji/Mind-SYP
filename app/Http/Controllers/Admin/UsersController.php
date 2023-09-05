@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Personnel;
 use App\Models\Pointage;
+use App\Models\Structure;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,8 +19,7 @@ class UsersController extends Controller
         $allUsers = [];
         foreach ($users as $user){
             $personnel = $user->personnel;
-            $personnelHasPointages = Pointage::where("personnel_id", $personnel->id)->first();
-            $personnelHasPointages ? $structure = $personnelHasPointages->structure->nom : $structure = "/";
+            $user->structure_id != null ? $structure = $user->structure->nom : $structure = "/";
             $allUsers[] = [
                 "id" => $user->id,
                 "personnel_id" => $personnel->id,
@@ -28,7 +28,8 @@ class UsersController extends Controller
                 "sexe" => $personnel->sexe,
                 "email" => $user->email,
                 "structure" => $structure,
-                "status" => $user->is_active
+                "status" => $user->is_active,
+                "admin" => $user->is_admin
             ];
         }
 
@@ -36,7 +37,9 @@ class UsersController extends Controller
     }
 
     public function create(){
-        return view("Users.create");
+        $sructures = Structure::orderBy("nom", 'asc')->get();
+
+        return view("Users.create", ["structures" => $sructures]);
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -47,7 +50,8 @@ class UsersController extends Controller
             'sexe' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|min:6|max:20',
-            'confirm' => 'required'
+            'confirm' => 'required',
+            "structure_id" => "required"
         ]);
 
         // check of password != confirm
@@ -67,7 +71,7 @@ class UsersController extends Controller
             "personnel_id" => $personnel->id,
             "email" => $request->email,
             "password" => Hash::make($request->password),
-            "is_admin" => 1
+            "structure_id" => $request->structure_id
         ]);
 
         return redirect()->back()->with("success", "Utilisateur créé avec succès.");
@@ -75,7 +79,9 @@ class UsersController extends Controller
 
     public function edit(int $id){
         $user = User::findOrfail($id);
-        return view('Users.edit', ["user" => $user]);
+        $userStructure = $user->structure;
+        $structures = Structure::orderBy("nom", "asc")->get();
+        return view('Users.edit', ["user" => $user, "structures" => $structures, "userStructure" => $userStructure]);
     }
 
     public function update(Request $request, int $id){
@@ -88,7 +94,8 @@ class UsersController extends Controller
             'email' => 'required',
             'oldpassword' => '',
             'password' => 'nullable|max:20',
-            'confirm' => ''
+            'confirm' => '',
+            'structure_id' => 'required'
         ]);
 
         // verify
@@ -105,6 +112,7 @@ class UsersController extends Controller
 
                 $user->update([
                     "email" => $request->email,
+                    'structure_id' => $request->structure_id,
                     "password" => Hash::make($request->password),
                 ]);
             }
@@ -117,7 +125,8 @@ class UsersController extends Controller
             ]);
 
             $user->update([
-                "email" => $request->email
+                "email" => $request->email,
+                'structure_id' => $request->structure_id,
             ]);
 
         }
@@ -125,4 +134,21 @@ class UsersController extends Controller
         return redirect()->back()->with("success", "Informations modifiées avec succès.");
 
     }
+
+    public function setActiveStatus(int $id){
+        $user = User::find($id);
+        $is_active = $user->is_active;
+        $user->update(["is_active" => !$is_active]);
+
+        return redirect()->back()->with("success", "Statut de l'utilisateur mis à jour avec succès");
+    }
+
+    public function setAdminStatus(int $id){
+        $user = User::find($id);
+        $is_admin = $user->is_admin;
+        $user->update(["is_admin" => !$is_admin]);
+
+        return redirect()->back()->with("success", "Statut de l'utilisateur mis à jour avec succès");
+    }
+
 }

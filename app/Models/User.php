@@ -21,7 +21,9 @@ class User extends Authenticatable
         'email',
         'password',
         "personnel_id",
-        "is_admin"
+        "is_admin",
+        "is_active",
+        "structure_id"
     ];
 
     /**
@@ -53,6 +55,11 @@ class User extends Authenticatable
     public function personnel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->BelongsTo(Personnel::class);
+    }
+
+    public function structure(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Structure::class);
     }
 
 }

@@ -10,6 +10,23 @@
 
     <div class="card">
         <div class="card-body">
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger mb-2" role="alert">
+                        {{$error}}
+                    </div>
+                @endforeach
+            @endif
+            @if(@session('success'))
+                <div class="alert alert-success">
+                    {{session('success')}}
+                </div>
+            @endif
+            @if(@session('fail'))
+                <div class="alert alert-danger">
+                    {{session('fail')}}
+                </div>
+            @endif
             <table class="table table-hover table-responsive table-striped">
                 <thead class="table-primary">
                     <th>#</th>
@@ -28,15 +45,18 @@
                             <td>{{$users[$i]["sexe"]}}</td>
                             <td>{{$users[$i]["structure"]}}</td>
                             <td>{{$users[$i]["email"]}}</td>
-                            @if($users[$i]["status"] == 1)
-                                <td class="text-center">
+                            <td class="text-center">
+                                @if($users[$i]["admin"] == 1)
+                                    <p class="badge text-bg-primary">Admin</p>
+                                @endif
+
+                                @if($users[$i]["status"] == 1)
                                     <p class="badge text-bg-success">Actif</p>
-                                </td>
-                            @else
-                                <td class="text-center">
+                                @else
                                     <p class="badge text-bg-danger">Désactivé</p>
-                                </td>
-                            @endif
+                                @endif
+                            </td>
+
                             <td>
                                 <div class="dropdown">
                                     <a href="#"
@@ -53,9 +73,30 @@
                                             </a>
                                         </li>
                                         <li class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item"
-                                               href="#"><i
-                                                    class="ri-delete-bin-fill text-danger me-2 align-middle text-muted"></i>Désactiver</a>
+                                        <li>
+                                            <a class="dropdown-item" href="{{route("users.update.admin", $users[$i]["id"])}}">
+                                                @if($users[$i]["admin"] == 1)
+                                                    <i class="ri-user-unfollow-fill text-danger me-2 align-middle"></i>
+                                                    <span class="text-danger">Retirer admin</span>
+                                                @else
+                                                    <i class="ri-user-settings-fill text-primary me-2 align-middle"></i>
+                                                    <span class="text-primary">Nomer admin</span>
+                                                @endif
+
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{route("users.update.status", $users[$i]["id"])}}">
+                                                @if($users[$i]["status"] == 1)
+                                                    <i class="ri-delete-bin-fill text-danger me-2 align-middle"></i>
+                                                    <span class="text-danger">Désactiver</span>
+                                                @else
+                                                    <i class="ri-check-fill me-2 align-middle text-primary"></i>
+                                                    <span class="text-primary">Activer</span>
+                                                @endif
+
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>

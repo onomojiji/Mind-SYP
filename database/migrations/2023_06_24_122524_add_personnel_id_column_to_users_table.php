@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Personnel::class)->nullable();
+            $table->foreignIdFor(\App\Models\Structure::class)->nullable();
         });
     }
 

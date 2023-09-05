@@ -7,9 +7,11 @@ use App\Models\Pointage;
 use App\Models\Poste;
 use App\Models\Structure;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToArray;
+use function PHPUnit\Framework\stringContains;
 
 class PointagesImport implements ToArray
 {
@@ -20,33 +22,13 @@ class PointagesImport implements ToArray
 
             // touver le personnel
             $isPersonnel = Personnel::where("prenom", $array[$i][1])->where("nom", $array[$i][0])->where("sexe", $array[$i][2])->first();
-            $isPersonnel ? $personnel = $isPersonnel : $personnel = Personnel::create([
+            $isPersonnel ? ($personnel = $isPersonnel) : ($personnel = Personnel::create([
                 "prenom" => $array[$i][1],
                 "nom" => $array[$i][0],
                 "sexe" => $array[$i][2],
-            ]);
+            ]));
 
-            // vérification du nom de la structure
-            // Si ce nom est égal à RESPONSABLES
-            if ($array[$i][3] == "RESPONSABLES"){ // si c'est un responsable, alors
-                $structurePersonnel = Str::remove([" ", "CHEF", "DIRECTEUR"], $array[$i][4]);
-                $structurePersonnel == "DSI" ? $isAdmin = 1 : $isAdmin = 0;
-                // on teste voir si l4utilisateur existe
-                $isUser = User::where("email", Str::lower(Str::remove([" ", "-", "M.", "Mme.", "Mr", "Mrs","Miss"], $array[$i][0].$array[$i][1]))."@minddevel.gov.cm")->first();
-                // on crès un utilisateur associé si il n4existe pas
-                $isUser?
-                     :
-                    User::create(
-                    [
-                        "email" => Str::lower(Str::remove([" ", "-", "M.", "Mme.", "Mr", "Mrs","Miss"], $array[$i][0].$array[$i][1]))."@minddevel.gov.cm",
-                        "password" => Hash::make("Mindsyp2023"),
-                        "personnel_id" => $personnel->id,
-                        "is_admin" => $isAdmin
-                    ]
-                );
-            }else{
-                $structurePersonnel = $array[$i][3];
-            }
+            $structurePersonnel = $array[$i][3];
 
             // trouver la structure
             $isStructure = Structure::where("nom", $structurePersonnel)->first();
@@ -60,10 +42,11 @@ class PointagesImport implements ToArray
                 "nom" => $array[$i][4]
             ]);
 
-            $date = date("Y-d-m", strtotime($array[$i][5]));
-            $mois = date("m", strtotime($date));
-            $annee = date("Y", strtotime($array[$i][5]));
-            $array[$i][6] != null ? $entree = date("H:i:s", strtotime($array[$i][6])) : $entree = null;
+            // $dateTab = explode("/", strval($array[$i][5]));
+            $date = Carbon::createFromFormat("d/m/Y", $array[$i][5]);
+            $mois = $date->month;
+            $annee = $date->year;
+            $array[$i][6] != null ? $entree =  date("H:i:s", strtotime($array[$i][6])) : $entree = null;
             $array[$i][7] != null ? $sortie = date("H:i:s", strtotime($array[$i][7])) : $sortie = null;
             $array[$i][8] != null ? $total = number_format($array[$i][8], 1, '.', '') : $total = null;
 
