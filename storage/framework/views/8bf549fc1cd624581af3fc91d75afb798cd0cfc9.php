@@ -68,9 +68,17 @@
                                     <option <?php if($user->personnel->sexe == "Female"): ?> selected <?php endif; ?> value="Female">Feminin</option>
                                 </select>
                             </div>
-                            <div class="col-md-9 form-group">
+                            <div class="col-md-6 form-group">
                                 <label for="email">Adresse email</label>
                                 <input id="email" value="<?php echo e($user->email); ?>" type="email" name="email" class="form-control" placeholder="Entrez l'adresse email' de l'utilisateur" required>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="structure_id">Structure</label>
+                                <select id="structure_id" class="form-select" name="structure_id" required>
+                                    <?php $__currentLoopData = $structures; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $structure): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option <?php if($userStructure->id == $structure->id): ?> selected <?php endif; ?> value="<?php echo e($structure->id); ?>"><?php echo e($structure->nom); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
                             </div>
                         </div>
                     </div>

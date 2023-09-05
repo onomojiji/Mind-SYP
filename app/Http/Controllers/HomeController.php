@@ -139,7 +139,7 @@ class HomeController extends Controller
             );
 
         }else{
-            $structure = Auth::user()->personnel->pointages->first()->structure;
+            $structure = Auth::user()->structure;
 
             $mois = $request->mois;
             $annee = $request->annee;

@@ -50,9 +50,17 @@
                             <option value="Female">Feminin</option>
                         </select>
                     </div>
-                    <div class="col-md-9 form-group">
+                    <div class="col-md-6 form-group">
                         <label for="email">Adresse email</label>
                         <input id="email" type="email" name="email" class="form-control" placeholder="Entrez l'adresse email' de l'utilisateur" required>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="structure_id">Structure</label>
+                        <select id="structure_id" class="form-select" name="structure_id" required>
+                            @foreach($structures as $structure)
+                                <option value="{{$structure->id}}">{{$structure->nom}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="row mb-3">

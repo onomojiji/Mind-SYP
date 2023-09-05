@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::middleware(["auth"])->group(function (){
+Route::middleware(["auth","is_active"])->group(function (){
     //Language Translation
     Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 
@@ -27,7 +27,7 @@ Route::middleware(["auth"])->group(function (){
 
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-    Route::controller(\App\Http\Controllers\Admin\PointageController::class)->group(function () {
+    Route::controller(\App\Http\Controllers\Admin\PointageController::class)->middleware("is_admin")->group(function () {
         Route::get('/importation/add', 'create')->name("importation.create");
         Route::get('/importation/list', 'index')->name("importation.list");
         Route::post('/importation/add', 'store')->name("importation.store");
@@ -40,12 +40,14 @@ Route::middleware(["auth"])->group(function (){
         Route::get('/structure/{structure_id}/{personnel_id}', 'show')->name("personnel.dashboard");
     });
 
-    Route::controller(\App\Http\Controllers\Admin\UsersController::class)->group(function () {
+    Route::controller(\App\Http\Controllers\Admin\UsersController::class)->middleware("is_admin")->group(function () {
         Route::get('/users/add', 'create')->name("users.create");
         Route::get('/users/list', 'index')->name("users.list");
         Route::post('/users/add', 'store')->name("users.store");
         Route::get("/users/edit/{user_id}", "edit")->name("users.edit");
         Route::post("/users/edit/{user_id}", "update")->name("users.update");
+        Route::get("/users/editStatus/{user_id}", "setActiveStatus")->name("users.update.status");
+        Route::get("/users/editAdmin/{user_id}", "setAdminStatus")->name("users.update.admin");
     });
 
 });

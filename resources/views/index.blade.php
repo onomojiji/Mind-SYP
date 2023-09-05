@@ -15,15 +15,15 @@
 
                 <div class="col-md-4">
                     <select class="form-select mb-3" name="mois">
-                        <option value="01" @if(\Illuminate\Support\Carbon::now()->month == 1) selected @endif>JANVIER</option>
-                        <option value="02" @if(\Illuminate\Support\Carbon::now()->month == 2) selected @endif>FEVRIER</option>
-                        <option value="03" @if(\Illuminate\Support\Carbon::now()->month == 3) selected @endif>MARS</option>
-                        <option value="04" @if(\Illuminate\Support\Carbon::now()->month == 4) selected @endif>AVRIL</option>
-                        <option value="05" @if(\Illuminate\Support\Carbon::now()->month == 5) selected @endif>MAI</option>
-                        <option value="06" @if(\Illuminate\Support\Carbon::now()->month == 6) selected @endif>JUIN</option>
-                        <option value="07" @if(\Illuminate\Support\Carbon::now()->month == 7) selected @endif>JUILLET</option>
-                        <option value="08" @if(\Illuminate\Support\Carbon::now()->month == 8) selected @endif>AOÛT</option>
-                        <option value="09" @if(\Illuminate\Support\Carbon::now()->month == 9) selected @endif>SEPTEMBRE</option>
+                        <option value="1" @if(\Illuminate\Support\Carbon::now()->month == 1) selected @endif>JANVIER</option>
+                        <option value="2" @if(\Illuminate\Support\Carbon::now()->month == 2) selected @endif>FEVRIER</option>
+                        <option value="3" @if(\Illuminate\Support\Carbon::now()->month == 3) selected @endif>MARS</option>
+                        <option value="4" @if(\Illuminate\Support\Carbon::now()->month == 4) selected @endif>AVRIL</option>
+                        <option value="5" @if(\Illuminate\Support\Carbon::now()->month == 5) selected @endif>MAI</option>
+                        <option value="6" @if(\Illuminate\Support\Carbon::now()->month == 6) selected @endif>JUIN</option>
+                        <option value="7" @if(\Illuminate\Support\Carbon::now()->month == 7) selected @endif>JUILLET</option>
+                        <option value="8" @if(\Illuminate\Support\Carbon::now()->month == 8) selected @endif>AOÛT</option>
+                        <option value="9" @if(\Illuminate\Support\Carbon::now()->month == 9) selected @endif>SEPTEMBRE</option>
                         <option value="10" @if(\Illuminate\Support\Carbon::now()->month == 10) selected @endif>OCTOBRE</option>
                         <option value="11" @if(\Illuminate\Support\Carbon::now()->month == 11) selected @endif>NOVEMBRE</option>
                         <option value="12" @if(\Illuminate\Support\Carbon::now()->month == 12) selected @endif>DECEMBRE</option>

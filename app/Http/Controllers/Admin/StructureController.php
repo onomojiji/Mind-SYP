@@ -122,12 +122,13 @@ class StructureController extends Controller
             $date_2 = Carbon::create($year, $month)->lastOfMonth()->format('Y-m-d');
 
             $period = CarbonPeriod::create($date_1, $date_2);
+
             foreach ($period as $date) {
                 array_push($dates, date("d-M-Y", strtotime($date)));
             }
 
             // algorithme d'ajout des heures moyennes par date
-            foreach ($dates as $date){
+            foreach ($period as $date){
                 $allDayPointages = Pointage::where("date", date("Y-m-d", strtotime($date)))
                     ->where("structure_id", $id)
                     ->get();

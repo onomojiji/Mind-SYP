@@ -67,9 +67,17 @@
                                     <option @if($user->personnel->sexe == "Female") selected @endif value="Female">Feminin</option>
                                 </select>
                             </div>
-                            <div class="col-md-9 form-group">
+                            <div class="col-md-6 form-group">
                                 <label for="email">Adresse email</label>
                                 <input id="email" value="{{$user->email}}" type="email" name="email" class="form-control" placeholder="Entrez l'adresse email' de l'utilisateur" required>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="structure_id">Structure</label>
+                                <select id="structure_id" class="form-select" name="structure_id" required>
+                                    @foreach($structures as $structure)
+                                        <option @if($userStructure->id == $structure->id) selected @endif value="{{$structure->id}}">{{$structure->nom}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

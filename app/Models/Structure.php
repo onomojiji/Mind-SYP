@@ -15,4 +15,9 @@ class Structure extends Model
     {
         return $this->hasMany(Pointage::class);
     }
+
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(User::class);
+    }
 }
